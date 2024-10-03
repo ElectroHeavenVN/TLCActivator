@@ -116,5 +116,15 @@ namespace TLCActivator.GUI
                     return "";
             }
         }
+
+        private void textBoxExePath_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void textBoxExePath_DragDrop(object sender, DragEventArgs e)
+        {
+            textBoxExePath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+        }
     }
 }

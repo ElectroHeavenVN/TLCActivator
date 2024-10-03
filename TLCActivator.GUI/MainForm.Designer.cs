@@ -56,6 +56,7 @@
             // 
             // textBoxExePath
             // 
+            this.textBoxExePath.AllowDrop = true;
             this.textBoxExePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExePath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -66,6 +67,8 @@
             this.textBoxExePath.Size = new System.Drawing.Size(413, 30);
             this.textBoxExePath.TabIndex = 1;
             this.textBoxExePath.TextChanged += new System.EventHandler(this.textBoxExePath_TextChanged);
+            this.textBoxExePath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxExePath_DragDrop);
+            this.textBoxExePath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxExePath_DragEnter);
             // 
             // buttonBrowseExeFile
             // 
@@ -116,6 +119,7 @@
             // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 453);
