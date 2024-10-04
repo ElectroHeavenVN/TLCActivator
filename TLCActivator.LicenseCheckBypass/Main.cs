@@ -16,6 +16,7 @@ namespace TLCActivator.LicenseCheckBypass
 
         public static int Initialize(string arg)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             new Harmony("TLCActivator.LicenseCheckBypass").PatchAll();
             string[] args = arg.Split('|');
@@ -25,6 +26,11 @@ namespace TLCActivator.LicenseCheckBypass
             File.WriteAllText("Data\\QLTK\\key.ini", licenseKey);
             new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
             return 0;
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            File.WriteAllText("ex.txt", e.ExceptionObject.ToString());
         }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

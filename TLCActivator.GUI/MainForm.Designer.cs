@@ -34,6 +34,7 @@
             this.buttonBrowseExeFile = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.buttonRun = new System.Windows.Forms.Button();
+            this.buttonSaveShortcut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             this.comboBoxType.Location = new System.Drawing.Point(14, 54);
             this.comboBoxType.Margin = new System.Windows.Forms.Padding(5);
             this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(447, 33);
+            this.comboBoxType.Size = new System.Drawing.Size(348, 33);
             this.comboBoxType.TabIndex = 0;
             // 
             // textBoxExePath
@@ -117,12 +118,29 @@
             this.buttonRun.UseVisualStyleBackColor = false;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
+            // buttonSaveShortcut
+            // 
+            this.buttonSaveShortcut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSaveShortcut.BackColor = System.Drawing.Color.White;
+            this.buttonSaveShortcut.Enabled = false;
+            this.buttonSaveShortcut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSaveShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonSaveShortcut.Location = new System.Drawing.Point(361, 54);
+            this.buttonSaveShortcut.Margin = new System.Windows.Forms.Padding(5);
+            this.buttonSaveShortcut.Name = "buttonSaveShortcut";
+            this.buttonSaveShortcut.Size = new System.Drawing.Size(100, 33);
+            this.buttonSaveShortcut.TabIndex = 5;
+            this.buttonSaveShortcut.Text = "Save shortcut";
+            this.buttonSaveShortcut.UseVisualStyleBackColor = false;
+            this.buttonSaveShortcut.Click += new System.EventHandler(this.buttonSaveShortcut_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 453);
+            this.Controls.Add(this.buttonSaveShortcut);
             this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.buttonBrowseExeFile);
@@ -150,6 +168,7 @@
         private System.Windows.Forms.Button buttonBrowseExeFile;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button buttonRun;
+        private System.Windows.Forms.Button buttonSaveShortcut;
     }
 }
 

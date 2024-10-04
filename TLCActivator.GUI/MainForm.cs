@@ -20,6 +20,7 @@ namespace TLCActivator.GUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             comboBoxType.SelectedIndex = 0;
+            buttonSaveShortcut.Font = new Font(buttonSaveShortcut.Font.FontFamily, 12, FontStyle.Regular, GraphicsUnit.Pixel, 0);
             switch (imgIndex = r.Next(0, 3))
             {
                 case 0:
@@ -38,13 +39,14 @@ namespace TLCActivator.GUI
         {
             if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe")
             {
-                buttonRun.BackColor = Color.FromArgb(255, 128, 128);
-                buttonRun.Enabled = false;
+                buttonRun.BackColor = buttonSaveShortcut.BackColor = Color.FromArgb(255, 128, 128);
+                buttonRun.Enabled = buttonSaveShortcut.Enabled = false;
             }
             else
             {
                 buttonRun.BackColor = Color.FromArgb(255, 255, 192);
-                buttonRun.Enabled = true;
+                buttonSaveShortcut.BackColor = Color.White;
+                buttonRun.Enabled = buttonSaveShortcut.Enabled = true;
             }
 
             if (textBoxExePath.Text.Contains("[ThanhLc] QLTK Dragon Ball Pro.exe"))
@@ -102,6 +104,32 @@ namespace TLCActivator.GUI
             Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {GetProductType((string)comboBoxType.SelectedItem)}");
         }
 
+        private void textBoxExePath_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void textBoxExePath_DragDrop(object sender, DragEventArgs e)
+        {
+            textBoxExePath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+        }
+
+        private void buttonSaveShortcut_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".lnk",
+                Filter = "Shortcut files (*.lnk)|*.lnk",
+                Title = "Save shortcut file",
+                FileName = Path.GetFileNameWithoutExtension(textBoxExePath.Text) + ".lnk",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Shortcut.CreateShortcut(saveFileDialog.FileName, Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {GetProductType((string)comboBoxType.SelectedItem)}");
+            }
+        }
+
         private string GetProductType(string selectedItem)
         {
             switch (selectedItem)
@@ -115,16 +143,6 @@ namespace TLCActivator.GUI
                 default:
                     return "";
             }
-        }
-
-        private void textBoxExePath_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.All;
-        }
-
-        private void textBoxExePath_DragDrop(object sender, DragEventArgs e)
-        {
-            textBoxExePath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
         }
     }
 }
