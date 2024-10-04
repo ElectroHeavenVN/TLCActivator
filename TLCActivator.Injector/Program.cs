@@ -53,7 +53,7 @@ namespace TLCActivator.Injector
                 }
                 while (!hasCLRJIT && count < 10);
                 Thread.Sleep(100);
-                if (ExtremeDumper.Injecting.Injector.InjectManagedAndWait((uint)process.Id, Path.GetFullPath("Lib\\TLCActivator.LicenseCheckBypass.dll"), "TLCActivator.LicenseCheckBypass.Hook", "Initialize", string.Join("|", args[1], args[2]).Trim(), InjectionClrVersion.V4, out _))
+                if (ExtremeDumper.Injecting.Injector.InjectManagedAndWait((uint)process.Id, Path.GetFullPath("Lib\\TLCActivator.LicenseCheckBypass.dll"), "TLCActivator.LicenseCheckBypass.Main", "Initialize", string.Join("|", args[1], args[2]).Trim(), InjectionClrVersion.V4, out _))
                     Console.WriteLine("Injection succeeded.");
                 else
                     Console.WriteLine("Injection failed.");
