@@ -72,6 +72,20 @@ namespace TLCActivator.LicenseCheckBypass
             }
         }
 
+        [HarmonyPatch(typeof(string), nameof(string.Contains), typeof(string))]
+        public class StringContainsHook
+        {
+            static bool Prefix(string __instance, string value, ref bool __result)
+            {
+                if (value == "windows server")
+                {
+                    __result = false;
+                    return false;
+                }
+                return true;
+            }
+        }
+
         [HarmonyPatch(typeof(Application), nameof(Application.Exit), new Type[0])]
         public class ApplicationExitHook
         {

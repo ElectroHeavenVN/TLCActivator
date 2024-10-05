@@ -17,14 +17,21 @@ namespace TLCActivator.LicenseCheckBypass
         public static int Initialize(string arg)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            try { 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            new Harmony("TLCActivator.LicenseCheckBypass").PatchAll();
+            new Harmony("TLCActivator.LicenseCheckBypass").PatchAll(Assembly.GetExecutingAssembly());
             string[] args = arg.Split('|');
             productNameAndVersion = args[0];
             productType = args[1];
             licenseKey = DeviceInformation.GenerateLicense(productNameAndVersion);
             File.WriteAllText("Data\\QLTK\\key.ini", licenseKey);
             new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText("ex.txt", ex.ToString());
+                return 1;
+            }
             return 0;
         }
 
