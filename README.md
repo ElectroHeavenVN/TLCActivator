@@ -25,6 +25,10 @@ Toàn bộ mã nguồn được phát hành dưới giấy phép [AGPLv3](./LICE
 
 ---
 
-__Bạn có thắc mắc hay gặp phải vấn đề? Hãy cho mình biết! Bạn có thể tạo issue tại đây hoặc yêu cầu trợ giúp trong [Server Discord](https://discord.gg/ekMDKCa5jQ).__
+__Bạn có thắc mắc hay gặp phải vấn đề? Hãy cho mình biết! Bạn có thể tạo issue tại đây hoặc yêu cầu trợ giúp và yêu cầu kích hoạt thêm sản phẩm khác của [ThanhLC](https://www.facebook.com/lcthanh172) trong [Server Discord](https://discord.gg/ekMDKCa5jQ).__
 
-[^1]: Hiện tại [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) hỗ trợ kích hoạt phiên bản [Mod Pro](https://thanhlc.com/product/id=30), [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64) và [Tool up Đệ tử](https://thanhlc.com/product/id=54). Bạn có thể yêu cầu kích hoạt thêm sản phẩm khác của [ThanhLC](https://www.facebook.com/lcthanh172) bằng cách tham gia server Discord bằng link ở trên.
+[^1]: Hiện tại [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) hỗ trợ kích hoạt các sản phẩm sau:
+- [Mod Pro](https://thanhlc.com/product/id=30)
+- [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64)
+- [Tool up Đệ tử PC](https://thanhlc.com/product/id=54)
+- [Tool up Đệ tử Java](https://thanhlc.com/product/id=34)

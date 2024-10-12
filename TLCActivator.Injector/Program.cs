@@ -17,7 +17,7 @@ namespace TLCActivator.Injector
             AllocConsole();
             if (args.Length != 3)
             {
-                Console.WriteLine("Usage: TLCActivator.Injector.exe <executable path> <product name and version> <product type>");
+                Console.WriteLine("Usage: TLCActivator.Injector.exe <executable path> <product id> <product type>");
                 Console.ReadLine();
                 return;
             }

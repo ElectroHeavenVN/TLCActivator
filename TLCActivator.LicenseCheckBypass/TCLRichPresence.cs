@@ -91,7 +91,7 @@ internal class TCLRichPresence
 
     static string GetDetail()
     {
-        switch (Main.productNameAndVersion)
+        switch (Main.productID)
         {
             case "DRAGONBALLPRO237":
                 return "Dragon Ball Pro 2.3.7 v2.0";
@@ -106,7 +106,7 @@ internal class TCLRichPresence
 
     static string GetLargeImageKey()
     {
-        switch (Main.productNameAndVersion)
+        switch (Main.productID)
         {
             case "DRAGONBALLPRO237":
                 return "icon_dboprov2";

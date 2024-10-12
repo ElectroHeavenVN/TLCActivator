@@ -15,6 +15,7 @@ namespace TLCActivator.GUI
         public MainForm()
         {
             InitializeComponent();
+            comboBoxType.Items.AddRange(Constants.PRODUCT_IDS);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -49,12 +50,9 @@ namespace TLCActivator.GUI
                 buttonRun.Enabled = buttonSaveShortcut.Enabled = true;
             }
 
-            if (textBoxExePath.Text.Contains("[ThanhLc] QLTK Dragon Ball Pro.exe"))
-                comboBoxType.SelectedIndex = 0;
-            else if (textBoxExePath.Text.Contains("[ThanhLc] Tool hỗ trợ up đệ tử.exe"))
-                comboBoxType.SelectedIndex = 1;
-            else if (textBoxExePath.Text.Contains("[ThanhLc] Tool up set kích hoạt.exe"))
-                comboBoxType.SelectedIndex = 2;
+            int index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => textBoxExePath.Text.Contains(x));
+            if (index != -1)
+                comboBoxType.SelectedIndex = index;
         }
 
         private void buttonBrowseExeFile_Click(object sender, EventArgs e)
@@ -101,7 +99,7 @@ namespace TLCActivator.GUI
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {GetProductType((string)comboBoxType.SelectedItem)}");
+            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
         }
 
         private void textBoxExePath_DragEnter(object sender, DragEventArgs e)
@@ -126,22 +124,7 @@ namespace TLCActivator.GUI
             };
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Shortcut.CreateShortcut(saveFileDialog.FileName, Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {GetProductType((string)comboBoxType.SelectedItem)}");
-            }
-        }
-
-        private string GetProductType(string selectedItem)
-        {
-            switch (selectedItem)
-            {
-                case "DRAGONBALLPRO237":
-                    return "thanhlcpropc";
-                case "AUTOPET237":
-                    return "tooldetupro";
-                case "TOOLUPSKH":
-                    return "toolupskh";
-                default:
-                    return "";
+                Shortcut.CreateShortcut(saveFileDialog.FileName, Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
             }
         }
     }

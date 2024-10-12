@@ -25,6 +25,10 @@ The source code is released under the [AGPLv3](./LICENSE) license.
 
 ---
 
-__If you come across any issues, let me know! You can create an issue here or request help in [My Discord server](https://discord.gg/ekMDKCa5jQ).__ The main language is Vietnamese, however you can use English or your main language without hesitation. Remember to verify before you can chat in the general channel.
+__If you come across any issues, let me know! You can create an issue here or request help and activation of other [ThanhLC](https://www.facebook.com/lcthanh172)'s products in [My Discord server](https://discord.gg/ekMDKCa5jQ).__ The main language is Vietnamese, however you can use English or your main language without hesitation. Remember to verify before you can chat in the general channel.
 
-[^1]: Currently [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) support activating [Mod Pro](https://thanhlc.com/product/id=30), [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64) (Tool for farming Activated Set) and [Tool up Đệ tử](https://thanhlc.com/product/id=54) (Tool for training pet/disciple). You can request activation of other [ThanhLC](https://www.facebook.com/lcthanh172)'s products by joining the Discord server using the link above.
+[^1]: Currently [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) support activating the following products:
+- [Mod Pro](https://thanhlc.com/product/id=30)
+- [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64) (Tool for farming Activated Set)
+- [Tool up Đệ tử PC](https://thanhlc.com/product/id=54) (Tool for training pet/disciple, PC version)
+- [Tool up Đệ tử Java](https://thanhlc.com/product/id=34) (Tool for training pet/disciple, Java version)

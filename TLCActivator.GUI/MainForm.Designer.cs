@@ -45,10 +45,6 @@
             this.comboBoxType.BackColor = System.Drawing.Color.White;
             this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Items.AddRange(new object[] {
-            "DRAGONBALLPRO237",
-            "AUTOPET237",
-            "TOOLUPSKH"});
             this.comboBoxType.Location = new System.Drawing.Point(14, 54);
             this.comboBoxType.Margin = new System.Windows.Forms.Padding(5);
             this.comboBoxType.Name = "comboBoxType";

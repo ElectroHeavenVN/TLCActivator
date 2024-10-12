@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace TLCActivator.LicenseCheckBypass
     static class Hook
     {
         [HarmonyPatch(typeof(HttpClient), nameof(HttpClient.GetAsync), typeof(string))]
-        public class GetAsyncHook
+        public class HttpClientGetAsyncHook
         {
             static bool Prefix(string requestUri, ref Task<HttpResponseMessage> __result)
             {
@@ -37,7 +38,7 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (values.Length > 1 && values[0] == "[thanhlc.com] [HSD: ")
                 {
-                    __result = $"TLC - {Main.productNameAndVersion} [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
+                    __result = $"TLC - {Main.productID} [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
                     return false;
                 }
                 return true;
@@ -65,7 +66,22 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (str0 == "\ud835\udcd3\ud835\udc93\ud835\udc82\ud835\udc88\ud835\udc90\ud835\udc8f \ud835\udcd1\ud835\udc82\ud835\udc8d\ud835\udc8d \ud835\udcdf\ud835\udc93\ud835\udc90 \ud835\udfd0.\ud835\udfd1.\ud835\udfd5 [\ud835\udc95\ud835\udc89\ud835\udc82\ud835\udc8f\ud835\udc89\ud835\udc8d\ud835\udc84.\ud835\udc84\ud835\udc90\ud835\udc8e - \ud835\udc6a\ud835\udc8d\ud835\udc8a\ud835\udc86\ud835\udc8f\ud835\udc95: ")
                 {
-                    __result = $"TLC - {Main.productNameAndVersion} [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
+                    __result = $"TLC - {Main.productID} [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
+                    return false;
+                }
+                return true;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(string), nameof(string.Concat), typeof(string[]))]
+        public class StringConcatMultipleHook
+        {
+            static bool Prefix(string[] values, ref string __result)
+            {
+                if (values.Contains("thanhloncho"))
+                {
+                    __result = $"Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator";
                     return false;
                 }
                 return true;

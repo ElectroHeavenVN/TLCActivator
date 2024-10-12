@@ -10,9 +10,9 @@ namespace TLCActivator.LicenseCheckBypass
     {
         internal static string licenseKey = "";
 
-        internal static string productNameAndVersion = "DRAGONBALL237";
+        internal static string productID = "DRAGONBALL237";
 
-        internal static string productType = "DBOPROTHANHLC";
+        internal static string productType = "thanhlcpropc";
 
         public static int Initialize(string arg)
         {
@@ -21,9 +21,9 @@ namespace TLCActivator.LicenseCheckBypass
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             new Harmony("TLCActivator.LicenseCheckBypass").PatchAll(Assembly.GetExecutingAssembly());
             string[] args = arg.Split('|');
-            productNameAndVersion = args[0];
+            productID = args[0];
             productType = args[1];
-            licenseKey = DeviceInformation.GenerateLicense(productNameAndVersion);
+            licenseKey = DeviceInformation.GenerateLicense(productID);
             File.WriteAllText("Data\\QLTK\\key.ini", licenseKey);
             new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
             }
