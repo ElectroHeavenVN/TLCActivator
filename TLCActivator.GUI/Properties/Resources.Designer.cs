@@ -73,6 +73,26 @@ namespace TLCActivator.GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TCLMeme {
+            get {
+                object obj = ResourceManager.GetObject("TCLMeme", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TCLMeme2 {
+            get {
+                object obj = ResourceManager.GetObject("TCLMeme2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TCLOnAltar {
             get {
                 object obj = ResourceManager.GetObject("TCLOnAltar", resourceCulture);

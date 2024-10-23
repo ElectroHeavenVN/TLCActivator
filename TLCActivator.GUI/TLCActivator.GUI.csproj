@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lct.ico" />
+    <Content Include="Resources\TCLMeme.png" />
+    <Content Include="Resources\TCLMeme2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -10,7 +10,7 @@ namespace TLCActivator.GUI
     {
         Random r = new Random();
 
-        int imgIndex = 0;
+        int imgIndex;
 
         public MainForm()
         {
@@ -22,18 +22,8 @@ namespace TLCActivator.GUI
         {
             comboBoxType.SelectedIndex = 0;
             buttonSaveShortcut.Font = new Font(buttonSaveShortcut.Font.FontFamily, 12, FontStyle.Regular, GraphicsUnit.Pixel, 0);
-            switch (imgIndex = r.Next(0, 3))
-            {
-                case 0:
-                    pictureBox.Image = Properties.Resources.TCLDie;
-                    break;
-                case 1:
-                    pictureBox.Image = Properties.Resources.TCLSmoke;
-                    break;
-                case 2:
-                    pictureBox.Image = Properties.Resources.TCLOnAltar;
-                    break;
-            }
+            pictureBox.Image = Properties.Resources.TCLMeme;
+            imgIndex = 3;
         }
 
         private void textBoxExePath_TextChanged(object sender, EventArgs e)
@@ -82,8 +72,19 @@ namespace TLCActivator.GUI
                 case 2:
                     Process.Start("https://youtu.be/12O_du5Okcg");
                     break;
+                case 3:
+                    Process.Start("https://phamgiang.net/");
+                    Process.Start("https://tiennvo.net/");
+                    Process.Start("https://shopwibu.net/");
+                    Process.Start("https://vpsz.net/");
+                    break;
+                case 4:
+                    Process.Start("https://phamgiang.net/");
+                    Process.Start("https://tiennvo.net/");
+                    Process.Start("https://dsc.gg/ehvnandfriends");
+                    break;
             }
-            switch (imgIndex = r.Next(0, 3))
+            switch (imgIndex = r.Next(0, 5))
             {
                 case 0:
                     pictureBox.Image = Properties.Resources.TCLDie;
@@ -93,6 +94,12 @@ namespace TLCActivator.GUI
                     break;
                 case 2:
                     pictureBox.Image = Properties.Resources.TCLOnAltar;
+                    break;
+                case 3:
+                    pictureBox.Image = Properties.Resources.TCLMeme;
+                    break;
+                case 4:
+                    pictureBox.Image = Properties.Resources.TCLMeme2;
                     break;
             }
         }
