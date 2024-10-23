@@ -32,3 +32,4 @@ __If you come across any issues, let me know! You can create an issue here or re
 - [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64) (Tool for farming Activated Set)
 - [Tool up Đệ tử PC](https://thanhlc.com/product/id=54) (Tool for training pet/disciple, PC version)
 - [Tool up Đệ tử Java](https://thanhlc.com/product/id=34) (Tool for training pet/disciple, Java version)
+- [Tool Train Skill 9](https://thanhlc.com/product/id=42) (Tool for training 9th skill)

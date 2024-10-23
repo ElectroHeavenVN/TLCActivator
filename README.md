@@ -32,3 +32,4 @@ __Bạn có thắc mắc hay gặp phải vấn đề? Hãy cho mình biết! B�
 - [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64)
 - [Tool up Đệ tử PC](https://thanhlc.com/product/id=54)
 - [Tool up Đệ tử Java](https://thanhlc.com/product/id=34)
+- [Tool Train Skill 9](https://thanhlc.com/product/id=42)
