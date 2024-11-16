@@ -26,8 +26,12 @@ namespace TLCActivator.LicenseCheckBypass
                 productID = args[0];
                 productType = args[1];
                 licenseKey = DeviceInformation.GenerateLicense(productID);
-                if (!File.Exists("Data\\QLTK\\key.ini"))
-                    File.WriteAllText("Data\\QLTK\\key.ini", licenseKey);
+                try
+                {
+                    if (!File.Exists("Data\\QLTK\\key.ini"))
+                        File.WriteAllText("Data\\QLTK\\key.ini", licenseKey);
+                }
+                catch { }
                 new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
             }
             catch (Exception ex)
