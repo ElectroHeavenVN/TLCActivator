@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using System.Windows.Forms;
 using HarmonyLib;
 
 namespace TLCActivator.LicenseCheckBypass
@@ -30,6 +31,7 @@ namespace TLCActivator.LicenseCheckBypass
             catch (Exception ex)
             {
                 File.WriteAllText("ex.txt", ex.ToString());
+                MessageBox.Show("Error:\r\n" + ex, "TLCActivator.LicenseCheckBypass", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                 return 1;
             }
             return 0;
@@ -38,6 +40,7 @@ namespace TLCActivator.LicenseCheckBypass
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             File.WriteAllText("ex.txt", e.ExceptionObject.ToString());
+            MessageBox.Show("Error:\r\n" + e.ExceptionObject, "TLCActivator.LicenseCheckBypass", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
         }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

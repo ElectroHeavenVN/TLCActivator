@@ -15,7 +15,7 @@ internal class TCLRichPresence
         Assets = new Assets
         {
             LargeImageKey = GetLargeImageKey(),
-            //LargeImageText = $"Tool up Set Kích hoạt",
+            LargeImageText = GetDetail(),
             SmallImageKey = "tcl_smoke",
             SmallImageText = "ThanhLC"
         },
@@ -99,6 +99,14 @@ internal class TCLRichPresence
                 return "Tool hỗ trợ up đệ tử Pro";
             case "TOOLUPSKH":
                 return "Tool up Set Kích hoạt";
+            case "AUTOPET225":
+                return "Tool hỗ trợ up đệ tử Java";
+            case "TRAINSKILL9":
+                return "Tool Train skill 9";
+            case "AUTONVBM":
+                return "Tool nhiệm vụ hàng ngày";
+            case "PORATASHARP237":
+                return "Tool up mảnh vỡ bông tai";
             default:
                 return "Activated by TLCActivator";
         }
@@ -114,6 +122,14 @@ internal class TCLRichPresence
                 return "icon_updepro";
             case "TOOLUPSKH":
                 return "icon_upskh";
+            case "AUTOPET225":
+                return "icon_updejava";
+            case "TRAINSKILL9":
+                return "icon_trainskill9";
+            case "AUTONVBM":
+                return "icon_nvbm";
+            case "PORATASHARP237":
+                return "icon_mvbt";
             default:
                 return "icon";
         }

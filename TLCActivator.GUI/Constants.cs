@@ -9,7 +9,8 @@
             "TOOLUPSKH",
             "AUTOPET225",
             "TRAINSKILL9",
-            "AUTONVBM"
+            "AUTONVBM",
+            "PORATASHARP237"
         };
 
         internal static readonly string[] PRODUCT_TYPES = new string[]
@@ -19,7 +20,8 @@
             "toolupskh",
             "toolpet",
             "tooltrainskill",
-            "toolnvhangngaypro"
+            "toolnvhangngaypro",
+            "toolmvbt"
         };
 
         internal static readonly string[] EXECUTABLE_NAMES = new string[]
@@ -29,7 +31,8 @@
             "[ThanhLc] Tool up set kích hoạt.exe",
             "[ThanhLc] Tool hỗ trợ up đệ tử thường.exe",
             "[ThanhLc] Tool train tuyệt kỹ.exe",
-            "[ThanhLc] Tool nhiệm vụ bò mộng.exe"
+            "[ThanhLc] Tool nhiệm vụ bò mộng.exe",
+            "[ThanhLc] Tool up mảnh vỡ bông tai.exe"
         };
     }
 }
