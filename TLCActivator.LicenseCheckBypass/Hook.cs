@@ -23,7 +23,6 @@ namespace TLCActivator.LicenseCheckBypass
                 for (int i = 0; i < 10; i++)
                     activatedOptions += $"[Option{i + 1}:T]-";
                 activatedOptions = activatedOptions.TrimEnd('-');
-                //string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 string version = "999.0";
                 httpResponseMessage.Content = new StringContent($"{Main.licenseKey}|{Main.productType}|{activatedOptions}|9999-12-31|thanhloncho|hoantat|{version}|endkey|");
                 __result = Task.FromResult(httpResponseMessage);
@@ -38,7 +37,7 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (values.Length > 1 && values[0] == "[thanhlc.com] [HSD: ")
                 {
-                    __result = $"TLC - {Main.productID} [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
+                    __result = $"TLC - {Main.productID} [{Main.productType}] [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
                     return false;
                 }
                 return true;
@@ -66,13 +65,12 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (str0 == "\ud835\udcd3\ud835\udc93\ud835\udc82\ud835\udc88\ud835\udc90\ud835\udc8f \ud835\udcd1\ud835\udc82\ud835\udc8d\ud835\udc8d \ud835\udcdf\ud835\udc93\ud835\udc90 \ud835\udfd0.\ud835\udfd1.\ud835\udfd5 [\ud835\udc95\ud835\udc89\ud835\udc82\ud835\udc8f\ud835\udc89\ud835\udc8d\ud835\udc84.\ud835\udc84\ud835\udc90\ud835\udc8e - \ud835\udc6a\ud835\udc8d\ud835\udc8a\ud835\udc86\ud835\udc8f\ud835\udc95: ")
                 {
-                    __result = $"TLC - {Main.productID} [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
+                    __result = $"TLC - {Main.productID} [{Main.productType}] [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
                     return false;
                 }
                 return true;
             }
         }
-
 
         [HarmonyPatch(typeof(string), nameof(string.Concat), typeof(string[]))]
         public class StringConcatMultipleHook
