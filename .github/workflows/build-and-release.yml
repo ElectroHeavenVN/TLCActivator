@@ -3,7 +3,11 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'TLCActivator**'
+      - "TLCActivator.GUI/**"
+      - "TLCActivator.Injector/**"
+      - "TLCActivator.LicenseCheckBypass/**"
+      - "Lib/**"
+      - "TLCActivator.sln"
 permissions:
   contents: write
 
