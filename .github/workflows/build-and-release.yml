@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'TLCActivator*'
+      - 'TLCActivator**'
 permissions:
   contents: write
 
