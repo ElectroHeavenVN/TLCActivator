@@ -2,6 +2,8 @@ name: Biên dịch dự án và tạo release
 on: 
   workflow_dispatch:
   push:
+    paths:
+      - 'TLCActivator*'
 permissions:
   contents: write
 
