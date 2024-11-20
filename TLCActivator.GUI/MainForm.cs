@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TLCActivator.GUI
@@ -18,15 +19,16 @@ namespace TLCActivator.GUI
             comboBoxType.Items.AddRange(Constants.PRODUCT_IDS);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        void MainForm_Load(object sender, EventArgs e)
         {
             comboBoxType.SelectedIndex = 0;
             buttonSaveShortcut.Font = new Font(buttonSaveShortcut.Font.FontFamily, 12, FontStyle.Regular, GraphicsUnit.Pixel, 0);
             pictureBox.Image = Properties.Resources.TCLMeme;
             imgIndex = 3;
+            CheckInjectorExists();
         }
 
-        private void textBoxExePath_TextChanged(object sender, EventArgs e)
+        void textBoxExePath_TextChanged(object sender, EventArgs e)
         {
             if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe")
             {
@@ -45,7 +47,7 @@ namespace TLCActivator.GUI
                 comboBoxType.SelectedIndex = index;
         }
 
-        private void buttonBrowseExeFile_Click(object sender, EventArgs e)
+        void buttonBrowseExeFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -59,7 +61,7 @@ namespace TLCActivator.GUI
                 textBoxExePath.Text = openFileDialog.FileName;
         }
 
-        private void pictureBox_Click(object sender, EventArgs e)
+        void pictureBox_Click(object sender, EventArgs e)
         {
             switch (imgIndex)
             {
@@ -104,22 +106,26 @@ namespace TLCActivator.GUI
             }
         }
 
-        private void buttonRun_Click(object sender, EventArgs e)
+        void buttonRun_Click(object sender, EventArgs e)
         {
+            if (!CheckInjectorExists(true))
+                return;
+            if (!CheckMonoDLL())
+                return;
             Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
         }
 
-        private void textBoxExePath_DragEnter(object sender, DragEventArgs e)
+        void textBoxExePath_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
         }
 
-        private void textBoxExePath_DragDrop(object sender, DragEventArgs e)
+        void textBoxExePath_DragDrop(object sender, DragEventArgs e)
         {
             textBoxExePath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
         }
 
-        private void buttonSaveShortcut_Click(object sender, EventArgs e)
+        void buttonSaveShortcut_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -133,6 +139,38 @@ namespace TLCActivator.GUI
             {
                 Shortcut.CreateShortcut(saveFileDialog.FileName, Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
             }
+        }
+
+        bool CheckInjectorExists(bool dontExit = false)
+        {
+            if (!File.Exists(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe"))
+            {
+                MessageBox.Show(this, "TLCActivator.Injector.exe not found!\r\nYour antivirus may have removed it.\r\nDisable the aitivirus before re-downloading TLCActivator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                if (!dontExit)
+                    Environment.Exit(1);
+                return false;
+            }
+            return true;
+        }
+
+        bool CheckMonoDLL()
+        {
+            if (File.Exists(textBoxExePath.Text))
+            {
+                string path = Path.GetDirectoryName(textBoxExePath.Text);
+                DirectoryInfo directoryInfo = new DirectoryInfo(path).GetDirectories().FirstOrDefault(x => x.Name.EndsWith("_Data"));
+                if (directoryInfo == null)
+                    return true;
+                FileInfo monoDLL = new FileInfo(directoryInfo.FullName + "\\Mono\\mono.dll");
+                if (!monoDLL.Exists)
+                {
+                    MessageBox.Show(this, "mono.dll not found! Your antivirus may have removed it.\r\nDisable the antivirus before re-downloading clean files.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                    return false;
+                }
+                return true;
+            }
+            MessageBox.Show(this, "File not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+            return false;
         }
     }
 }
