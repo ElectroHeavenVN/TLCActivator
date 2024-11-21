@@ -1,0 +1,47 @@
+name: Biên dịch dự án và tạo release
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - 'TLCActivator**'
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Biên dịch dự án và tạo release
+    runs-on: windows-latest
+    env:
+      SolutionPath: TLCActivator.sln
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+      - name: Restore the solution
+        run: msbuild $env:SolutionPath /t:restore /p:Configuration=Release
+      - name: Restore NuGet packages
+        run: nuget restore $env:SolutionPath
+      - name: Biên dịch dự án
+        run: msbuild $env:SolutionPath /t:rebuild /p:Configuration=Release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Release
+          path: Output/Release
+      - name: Nén artifact
+        if: github.ref_name == 'main'
+        run: Compress-Archive -Path Output/Release -DestinationPath "TLCActivator.zip"
+      - name: Phát hành artifact
+        if: github.ref_name == 'main'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: TLCActivator.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: TLCActivator
+          draft: false
+          prerelease: false
+          tag_name: TLCActivator
+          body: Bản phát hành này được tự động tạo từ mã nguồn bằng GitHub Actions.
