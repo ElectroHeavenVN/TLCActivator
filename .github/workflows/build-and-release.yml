@@ -44,8 +44,8 @@ jobs:
         with:
           files: TLCActivator.zip
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: TLCActivator
+          name: TLCActivator v2
           draft: false
           prerelease: false
-          tag_name: TLCActivator
+          tag_name: TLCActivator-v2
           body: Bản phát hành này được tự động tạo từ mã nguồn bằng GitHub Actions.
