@@ -1,5 +1,5 @@
 # [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) [[EN](./README_EN.md) | VI]
-Trình kích hoạt phiên bản [Mod Pro](https://thanhlc.com/product/id=30) và các tool [Ngọc Rồng Online](https://ngocrongonline.com/) khác của [ThanhLC](https://www.facebook.com/lcthanh172).
+Trình kích hoạt phiên bản [Mod Pro](https://thanhlc.com/product/id=30) và gần như tất cả các tool [Ngọc Rồng Online](https://ngocrongonline.com/) khác của [ThanhLC](https://www.facebook.com/lcthanh172).
 ## Tải xuống
 - Nếu bạn muốn tải toàn bộ mã nguồn, bạn có thể clone repo này bằng [git](https://git-scm.com/) hoặc [GitHub Desktop](https://github.com/apps/desktop).
 - Nếu bạn muốn tải bản đã biên dịch, bạn có thể tải xuống trong phần [Release](../../releases/latest/).

@@ -1,5 +1,5 @@
 # [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) [EN | [VI](./README.md)]
-Activator for [ThanhLC](https://www.facebook.com/lcthanh172)'s [Mod Pro](https://thanhlc.com/product/id=30) and other [Dragon Boy Online](https://ngocrongonline.com/) tools made by him.
+Activator for [ThanhLC](https://www.facebook.com/lcthanh172)'s [Mod Pro](https://thanhlc.com/product/id=30) and (almost) any other [Dragon Boy Online](https://ngocrongonline.com/) tools made by him.
 ## Download
 - If you want to download the entire source code, you can clone this repo using either [git](https://git-scm.com/) or [GitHub Desktop](https://github.com/apps/desktop).
 - If you want to download the compiled version, you can download it in the [Release](../../releases/latest/) section.
