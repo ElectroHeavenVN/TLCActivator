@@ -39,7 +39,7 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (string.IsNullOrEmpty(value))
                     return true;
-                if ((value.StartsWith("[thanhlc.com] [HSD: ") || value.StartsWith("\ud835\udcd3\ud835\udc93\ud835\udc82\ud835\udc88\ud835\udc90\ud835\udc8f \ud835\udcd1\ud835\udc82\ud835\udc8d\ud835\udc8d \ud835\udcdf\ud835\udc93\ud835\udc90 \ud835\udfd0.\ud835\udfd1.\ud835\udfd5")) && __instance is Form)
+                if ((value.StartsWith("[thanhlc.com] [HSD: ") || value.StartsWith("[thanhlc.com] HSD: ") || value.StartsWith("\ud835\udcd3\ud835\udc93\ud835\udc82\ud835\udc88\ud835\udc90\ud835\udc8f \ud835\udcd1\ud835\udc82\ud835\udc8d\ud835\udc8d \ud835\udcdf\ud835\udc93\ud835\udc90 \ud835\udfd0.\ud835\udfd1.\ud835\udfd5")) && __instance is Form)
                 {
                     string productID = Main.productID;
                     if (Main.IsProductIDUnknown)

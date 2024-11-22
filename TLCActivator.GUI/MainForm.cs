@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -33,23 +35,23 @@ namespace TLCActivator.GUI
 
         void textBoxExePath_TextChanged(object sender, EventArgs e)
         {
-            if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe")
+            if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe" || Path.GetFileName(textBoxExePath.Text).Contains(Constants.PRODUCT_LICENSE_NAME) || Constants.GAME_EXECUTABLE_NAMES.Any(x => Path.GetFileName(textBoxExePath.Text).Contains(x)))
             {
                 buttonRun.BackColor = buttonSaveShortcut.BackColor = Color.FromArgb(255, 128, 128);
                 buttonRun.Enabled = buttonSaveShortcut.Enabled = false;
+                comboBoxType.SelectedIndex = comboBoxType.Items.Count - 1;
             }
             else
             {
                 buttonRun.BackColor = Color.FromArgb(255, 255, 192);
                 buttonSaveShortcut.BackColor = Color.White;
                 buttonRun.Enabled = buttonSaveShortcut.Enabled = true;
+                int index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
+                if (index != -1)
+                    comboBoxType.SelectedIndex = index;
+                else
+                    comboBoxType.SelectedIndex = comboBoxType.Items.Count - 1;
             }
-
-            int index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => textBoxExePath.Text.Contains(x));
-            if (index != -1)
-                comboBoxType.SelectedIndex = index;
-            else
-                comboBoxType.SelectedIndex = comboBoxType.Items.Count - 1;
         }
 
         void buttonBrowseExeFile_Click(object sender, EventArgs e)
@@ -138,10 +140,10 @@ namespace TLCActivator.GUI
                 return;
             if (!CheckMonoDLL())
                 return;
-            ShowShareFileDialog();
+            TryShowShareFileDialog();
             Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
         }
-       
+
         void textBoxExePath_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
@@ -200,38 +202,108 @@ namespace TLCActivator.GUI
             return false;
         }
 
-        void ShowShareFileDialog()
+        void TryShowShareFileDialog()
         {
-            if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
+            int index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
+            if (index != -1)
+                comboBoxType.SelectedIndex = index;
+            else
+                comboBoxType.SelectedIndex = comboBoxType.Items.Count - 1;
+            string ignoredFileHashesPath = Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt";
+            if (!File.Exists(ignoredFileHashesPath))
+                File.Create(ignoredFileHashesPath).Close();
+            string gameAssemblyPath = "";
+            string accountManagerPath = textBoxExePath.Text;
+            DirectoryInfo directoryInfo;
+            if (comboBoxType.SelectedItem.ToString() == "AUTOPET225")
+            {
+                directoryInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "lib"));
+                gameAssemblyPath = directoryInfo.FullName.TrimEnd('\\') + "\\DragonPro225.jar";
+            }
+            else
+            {
+                directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text)).GetDirectories().FirstOrDefault(x => x.Name.EndsWith("_Data"));
+                if (directoryInfo != null)
+                    gameAssemblyPath = directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll";
+            }
+            string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
+            string hashSHA256_GameAssembly = "";
+            string hashSHA256_accountManager = "";
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                if (!string.IsNullOrEmpty(gameAssemblyPath))
+                {
+                    using (FileStream fileStream = File.OpenRead(gameAssemblyPath))
+                    {
+                        hashSHA256_GameAssembly = BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", string.Empty);
+                    }
+                }
+                using (FileStream fileStream = File.OpenRead(accountManagerPath))
+                {
+                    hashSHA256_accountManager = BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", string.Empty);
+                }
+            }
+            if (ignoredFileHashes.Contains(hashSHA256_GameAssembly) && ignoredFileHashes.Contains(hashSHA256_accountManager))
                 return;
-            if (!File.Exists(Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt"))
-                File.Create(Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt").Close();
-            string path = Path.GetDirectoryName(textBoxExePath.Text);
-            DirectoryInfo directoryInfo = new DirectoryInfo(path).GetDirectories().FirstOrDefault(x => x.Name.EndsWith("_Data"));
-            byte[] assemblyCSharp = null;
-            if (directoryInfo != null && File.Exists(directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll"))
-                assemblyCSharp = File.ReadAllBytes(directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll");
-            byte[] accountManager = File.ReadAllBytes(textBoxExePath.Text);
-            string[] hashes = File.ReadAllLines(Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt");
-            string hashMD5_assemblyCSharp = assemblyCSharp != null ? BitConverter.ToString(MD5.Create().ComputeHash(assemblyCSharp)).Replace("-", "") : "";
-            string hashMD5_accountManager = BitConverter.ToString(MD5.Create().ComputeHash(accountManager)).Replace("-", "");
-            if ((string.IsNullOrEmpty(hashMD5_assemblyCSharp) || hashes.Contains(hashMD5_assemblyCSharp)) && hashes.Contains(hashMD5_accountManager))
+            if (Constants.ASSEMBLY_CSHARP_HASHES.Contains(hashSHA256_GameAssembly) && Constants.EXECUTABLE_HASHES.Contains(hashSHA256_accountManager))
                 return;
-            if (MessageBox.Show(this, "It seems like this tool is not officially supported. TLCActivator will try its best to activate the tool. Would you like to send this tool to ElectroHeavenVN?\r\n\r\nCó vẻ như tool này không được hỗ trợ chính thức. TLCActivator sẽ cố gắng hết sức để kích hoạt tool này. Bạn có muốn gửi file tool cho ElectroHeavenVN không?", "Share binaries", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000) != DialogResult.Yes)
+            if (!string.IsNullOrEmpty(gameAssemblyPath) && CheckSignature(gameAssemblyPath))
+                gameAssemblyPath = "";
+            File.AppendAllLines(ignoredFileHashesPath, new string[] { hashSHA256_accountManager, hashSHA256_GameAssembly });
+            string message = "It seems like this tool is not officially supported. TLCActivator will try its best to activate the tool. Would you like to send this tool to ElectroHeavenVN?\r\n\r\nCó vẻ như tool này không được hỗ trợ chính thức. TLCActivator sẽ cố gắng hết sức để kích hoạt tool này. Bạn có muốn gửi file tool cho ElectroHeavenVN không?";
+            if (index != -1)
+            {
+                message = $"It seems like you are using an updated version of \"{comboBoxType.SelectedItem}\", which may have been modified to protect itself from TLCActivator. TLCActivator will try its best to activate the tool. Would you like to send this tool to ElectroHeavenVN?\r\n\r\nCó vẻ như bạn đang sử dụng phiên bản mới của \"{comboBoxType.SelectedItem}\". Phiên bản này có thể đã được sửa đổi để chống lại TLCActivator. TLCActivator sẽ cố gắng hết sức để kích hoạt tool này. Bạn có muốn gửi file tool cho ElectroHeavenVN không?";
+            }
+            if (MessageBox.Show(this, message, "Share binaries - Sharing is caring", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000) != DialogResult.Yes)
                 return;
-            File.AppendAllLines(Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt", new string[] { hashMD5_assemblyCSharp, hashMD5_accountManager });
+            SendFile(new List<string> { accountManagerPath, gameAssemblyPath });
+        }
+
+        bool CheckSignature(string filePath)
+        {
+            byte[] data = File.ReadAllBytes(filePath);
+            string dosSigStr = Encoding.ASCII.GetString(data, 78, 38);
+            return dosSigStr.Contains("ElectroHeavenVN");
+        }
+
+        void SendFile(List<string> filePaths)
+        {
             new Thread(() =>
             {
-                using (HttpClient httpClient = new HttpClient())
+                int count = filePaths.Count;
+                while (filePaths.Count > 0)
                 {
-                    MultipartFormDataContent form = new MultipartFormDataContent();
-                    if (directoryInfo != null)
-                        form.Add(new ByteArrayContent(assemblyCSharp), "file1", "Assembly-CSharp.dll");
-                    form.Add(new ByteArrayContent(accountManager), "file2", Path.GetFileName(textBoxExePath.Text));
-                    httpClient.PostAsync(Constants.WEBHOOK_LINK, form).Wait();
-
-                    MessageBox.Show(this, "Send files successfully!\r\n\r\nGửi file thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                    try
+                    {
+                        using (HttpClient httpClient = new HttpClient())
+                        {
+                            MultipartFormDataContent form = new MultipartFormDataContent();
+                            int totalSize = 0;
+                            while (totalSize < 1024 * 1024 * 15 && filePaths.Count > 0)
+                            {
+                                if (string.IsNullOrEmpty(filePaths.Last()) || !File.Exists(filePaths.Last()))
+                                {
+                                    filePaths.RemoveAt(filePaths.Count - 1);
+                                    continue;
+                                }
+                                byte[] content = File.ReadAllBytes(filePaths.Last());
+                                if (content.Length + totalSize > 1024 * 1024 * 15)
+                                {
+                                    filePaths.RemoveAt(filePaths.Count - 1);
+                                    break;
+                                }
+                                form.Add(new ByteArrayContent(content), "file" + (count - filePaths.Count + 1), Path.GetFileName(filePaths.Last()));
+                                totalSize += content.Length;
+                                filePaths.RemoveAt(filePaths.Count - 1);
+                            }
+                            httpClient.PostAsync(Constants.WEBHOOK_LINK, form).Wait();
+                            Thread.Sleep(3000);
+                        }
+                    }
+                    catch { }
                 }
+                MessageBox.Show(this, "Send files successfully!\r\n\r\nGửi file thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
             }).Start();
         }
     }
