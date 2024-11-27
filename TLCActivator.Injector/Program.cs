@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 using NativeSharp;
 
 namespace TLCActivator.Injector
@@ -14,6 +15,11 @@ namespace TLCActivator.Injector
 
         static void Main(string[] args)
         {
+            if (Environment.CurrentDirectory.Contains("AppData\\Local\\Temp"))
+            {
+                MessageBox.Show("Please extract the file before running!", "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                return;
+            }
             AllocConsole();
             if (args.Length != 3)
             {

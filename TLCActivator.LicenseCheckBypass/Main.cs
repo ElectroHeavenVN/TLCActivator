@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using System.Linq;
 using HarmonyLib;
 
 namespace TLCActivator.LicenseCheckBypass
@@ -28,6 +29,11 @@ namespace TLCActivator.LicenseCheckBypass
 
         public static int Initialize(string arg)
         {
+            if (AppDomain.CurrentDomain.GetAssemblies().Where(a => Path.GetExtension(a.Location) == ".exe").Any(a => a.Location.Contains("AppData\\Local\\Temp")))
+            {
+                MessageBox.Show("Please extract the file before running!", "TLCActivator.LicenseCheckBypass", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                return 1;
+            }
 #if DEBUG
             AllocConsole();
 #endif

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -17,8 +18,7 @@ namespace TLCActivator.GUI
 {
     internal static class Program
     {
-        [DllImport("user32.dll")]
-        static extern bool SetProcessDPIAware();
+        static Mutex mutex = new Mutex(true, "<TLCActivator>{6f73dce4-a7ee-44f7-ad0a-14f641509334}");
 
         /// <summary>
         /// The main entry point for the application.
@@ -26,9 +26,24 @@ namespace TLCActivator.GUI
         [STAThread]
         static void Main()
         {
+            if (!mutex.WaitOne(TimeSpan.Zero, true))
+            {
+                Process otherInstance = Process.GetProcessesByName(Assembly.GetEntryAssembly().GetName().Name).FirstOrDefault((Process p) => p.MainWindowHandle != IntPtr.Zero);
+                if (otherInstance != null)
+                {
+                    NativeMethods.ShowWindowAsync(otherInstance.MainWindowHandle, 9);
+                    NativeMethods.SetForegroundWindow(otherInstance.MainWindowHandle);
+                }
+                return;
+            }
+            if (Environment.CurrentDirectory.Contains("AppData\\Local\\Temp"))
+            {
+                MessageBox.Show("Please extract the file before running!\r\nVui lòng giải nén file trước!", "TLCActivator", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                mutex.ReleaseMutex();
+                return;
+            }
             new Thread(ConfigureEnv).Start();
-
-            SetProcessDPIAware();
+            NativeMethods.SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
