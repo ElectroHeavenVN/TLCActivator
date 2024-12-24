@@ -4,12 +4,23 @@ Activator for [ThanhLC](https://www.facebook.com/lcthanh172)'s [Mod Pro](https:/
 - If you want to download the entire source code, you can clone this repo using either [git](https://git-scm.com/) or [GitHub Desktop](https://github.com/apps/desktop).
 - If you want to download the compiled version, you can download it in the [Release](../../releases/latest/) section.
 ## User guide
-- Prepare the original file to proceed with license activation. [^1]
+- Prepare the original file to proceed with license activation (See the list of [supported products](#Supported-products)).
 - Run the `TLCActivator.GUI.exe` program.
 - Select the Account Manager file either by drag-and-drop, click the Browse file button (`...`) or enter the file path in the text field.
 - Select the product name from the drop-down list.
 - Click `Run`. A console window will appear. If after 1-2 seconds this window shows `Injection succeeded.` it means the activation was successful. Otherwise, try starting the Account Manager first for about 5 seconds, then exit before trying again.
 - *<u>(Optional)</u>*: Click `Save shortcut` to save a shortcut to `TLCActivator.Injector.exe` with the command line arguments pre-populated in the location you want. Launching `TLCActivator.Injector.exe` via this shortcut will automatically open the Account Manager and activate the license.
+
+## Supported products
+Currently [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) support activating the following products:
+- [Mod Pro](https://thanhlc.com/product/id=30)
+- [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64) (Tool for farming Activated Set)
+- [Tool up Đệ tử PC](https://thanhlc.com/product/id=54) (Tool for training pet/disciple, PC version)
+- [Tool up Đệ tử Java](https://thanhlc.com/product/id=34) (Tool for training pet/disciple, Java version)
+- [Tool Train Skill 9](https://thanhlc.com/product/id=42) (Tool for training 9th skill)
+- [Tool Auto nhiệm vụ hàng ngày tại Bò Mộng](https://thanhlc.com/product/id=51) (Tool for auto daily quest at Bora)
+- [Tool up Mảnh vỡ bông tai](https://thanhlc.com/product/id=32) (Tool for farming Porata shards)
+- Tool đánh Godzilla & Kong (Tool for fighting Godzilla & Kong, event has ended)
 
 ## License
 The source code is released under the [AGPLv3](./LICENSE) license.
@@ -26,10 +37,3 @@ The source code is released under the [AGPLv3](./LICENSE) license.
 ---
 
 __If you come across any issues, let me know! You can create an issue here or request help and activation of other [ThanhLC](https://www.facebook.com/lcthanh172)'s products in [My Discord server](https://discord.gg/ekMDKCa5jQ).__ The main language is Vietnamese, however you can use English or your main language without hesitation. Remember to verify before you can chat in the general channel.
-
-[^1]: Currently [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) support activating the following products:
-- [Mod Pro](https://thanhlc.com/product/id=30)
-- [Tool up Set Kích hoạt](https://thanhlc.com/product/id=64) (Tool for farming Activated Set)
-- [Tool up Đệ tử PC](https://thanhlc.com/product/id=54) (Tool for training pet/disciple, PC version)
-- [Tool up Đệ tử Java](https://thanhlc.com/product/id=34) (Tool for training pet/disciple, Java version)
-- [Tool Train Skill 9](https://thanhlc.com/product/id=42) (Tool for training 9th skill)
