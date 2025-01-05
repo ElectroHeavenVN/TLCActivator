@@ -26,6 +26,13 @@ namespace TLCActivator.GUI
         [STAThread]
         static void Main()
         {
+            var clrStrongName = (IClrStrongName)RuntimeEnvironment.GetRuntimeInterfaceAsObject(new Guid("B79B0ACD-F5CD-409b-B5A5-A16244610B92"), new Guid("9FD93CCF-3280-4391-B3A9-96E1CDE77C8D"));
+            int result = clrStrongName.StrongNameSignatureVerificationEx(typeof(Program).Assembly.Location, true, out bool verified);
+            if (result != 0 || !verified)
+            {
+                MessageBox.Show("This program has been modified, please download the original version!\r\nChương trình này đã bị chỉnh sửa! Vui lòng tải phiên bản gốc!", "TLCActivator", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                return;
+            }
             if (!mutex.WaitOne(TimeSpan.Zero, true))
             {
                 Process otherInstance = Process.GetProcessesByName(Assembly.GetEntryAssembly().GetName().Name).FirstOrDefault((Process p) => p.MainWindowHandle != IntPtr.Zero);

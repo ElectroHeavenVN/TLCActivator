@@ -1,3 +1,5 @@
+# LƯU Ý: Không tải TLCActivator từ các nguồn không tin cậy khác ngoài kho lưu trữ GitHub này. Đảm bảo kiểm tra mã nguồn trước khi sử dụng!
+---
 # [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) [[EN](./README_EN.md) | VI]
 Trình kích hoạt phiên bản [Mod Pro](https://thanhlc.com/product/id=30) và gần như tất cả các tool [Ngọc Rồng Online](https://ngocrongonline.com/) khác của [ThanhLC](https://www.facebook.com/lcthanh172).
 ## Tải xuống

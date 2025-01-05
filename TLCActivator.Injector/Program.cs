@@ -15,9 +15,16 @@ namespace TLCActivator.Injector
 
         static void Main(string[] args)
         {
+            var clrStrongName = (IClrStrongName)RuntimeEnvironment.GetRuntimeInterfaceAsObject(new Guid("B79B0ACD-F5CD-409b-B5A5-A16244610B92"), new Guid("9FD93CCF-3280-4391-B3A9-96E1CDE77C8D"));
+            int result = clrStrongName.StrongNameSignatureVerificationEx(typeof(Program).Assembly.Location, true, out bool verified);
+            if (result != 0 || !verified)
+            {
+                MessageBox.Show("This program has been modified, please download the original version!\r\nChương trình này đã bị chỉnh sửa! Vui lòng tải phiên bản gốc!", "TLCActivator", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                return;
+            }
             if (Environment.CurrentDirectory.Contains("AppData\\Local\\Temp"))
             {
-                MessageBox.Show("Please extract the file before running!", "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                MessageBox.Show("Please extract the file before running!\r\nVui lòng giải nén file trước!", "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                 return;
             }
             AllocConsole();

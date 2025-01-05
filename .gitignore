@@ -376,3 +376,4 @@ Output/*.exe
 Output/*.exe.config
 Output/Lib/*.dll
 Output/Dragon ball_237b_Data/Managed/Assembly-CSharp.dll
+TLCActivator.snk

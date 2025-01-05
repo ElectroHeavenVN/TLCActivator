@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="IClrStrongName.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

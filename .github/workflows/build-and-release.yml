@@ -24,6 +24,10 @@ jobs:
         uses: microsoft/setup-msbuild@v2
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v2
+      - name: Create Strong Name Key file
+        run: |
+          $base64 = "${{ secrets.SNK_BASE64 }}"
+          [System.IO.File]::WriteAllBytes("TLCActivator.snk", [System.Convert]::FromBase64String($base64))
       - name: Restore the solution
         run: msbuild $env:SolutionPath /t:restore /p:Configuration=Release
       - name: Restore NuGet packages
