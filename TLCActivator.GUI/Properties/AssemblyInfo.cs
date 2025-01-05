@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 [assembly: AssemblyCompany("ElectroHeavenVN")]
-[assembly: AssemblyProduct("TLCActivator.LicenseCheckBypass")]
+[assembly: AssemblyProduct("TLCActivator.GUI")]
 [assembly: AssemblyCopyright("Copyright © ElectroHeavenVN 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
