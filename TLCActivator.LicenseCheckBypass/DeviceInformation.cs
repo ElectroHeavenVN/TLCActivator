@@ -51,11 +51,15 @@ internal static class DeviceInformation
     public static string GetCPUInformation()
     {
         string result = string.Empty;
-        using (ManagementObjectCollection.ManagementObjectEnumerator managementObjectEnumerator = new ManagementClass("win32_processor").GetInstances().GetEnumerator())
+        try
         {
-            if (managementObjectEnumerator.MoveNext())
-                result = ((ManagementObject)managementObjectEnumerator.Current).Properties["processorID"].Value.ToString();
+            using (ManagementObjectCollection.ManagementObjectEnumerator managementObjectEnumerator = new ManagementClass("win32_processor").GetInstances().GetEnumerator())
+            {
+                if (managementObjectEnumerator.MoveNext())
+                    result = ((ManagementObject)managementObjectEnumerator.Current).Properties["processorID"].Value.ToString();
+            }
         }
+        catch { }
         return result;
     }
 

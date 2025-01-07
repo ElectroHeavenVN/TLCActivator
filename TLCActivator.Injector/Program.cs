@@ -69,7 +69,7 @@ namespace TLCActivator.Injector
                 if (ExtremeDumper.Injecting.Injector.InjectManagedAndWait((uint)process.Id, Path.GetDirectoryName(typeof(Program).Assembly.Location) + "\\Lib\\TLCActivator.LicenseCheckBypass.dll", "TLCActivator.LicenseCheckBypass.Main", "Initialize", string.Join("|", args[1], args[2]).Trim(), InjectionClrVersion.V4, out _))
                     Console.WriteLine("Injection succeeded.");
                 else
-                    Console.WriteLine("Injection failed.");
+                    Console.WriteLine($"Injection failed. Check the ${Path.GetDirectoryName(args[0])}/ex.txt file for more information.");
                 Console.WriteLine("Exit after 3 seconds...");
                 Thread.Sleep(3000);
             }
