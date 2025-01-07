@@ -26,6 +26,7 @@ namespace TLCActivator.GUI
         [STAThread]
         static void Main()
         {
+            NativeMethods.SetProcessDPIAware();
             var clrStrongName = (IClrStrongName)RuntimeEnvironment.GetRuntimeInterfaceAsObject(new Guid("B79B0ACD-F5CD-409b-B5A5-A16244610B92"), new Guid("9FD93CCF-3280-4391-B3A9-96E1CDE77C8D"));
             int result = clrStrongName.StrongNameSignatureVerificationEx(typeof(Program).Assembly.Location, true, out bool verified);
             if (result != 0 || !verified)
@@ -50,7 +51,17 @@ namespace TLCActivator.GUI
                 return;
             }
             new Thread(ConfigureEnv).Start();
-            NativeMethods.SetProcessDPIAware();
+            string assemblyInfo = new HttpClient().GetStringAsync("https://raw.githubusercontent.com/ElectroHeavenVN/TLCActivator/refs/heads/main/TLCActivator.GUI/Properties/AssemblyInfo.cs").Result;
+            int index = assemblyInfo.IndexOf("[assembly: AssemblyVersion(\"") + "[assembly: AssemblyVersion(\"".Length;
+            string version = assemblyInfo.Substring(index, assemblyInfo.IndexOf("\")]", index) - index);
+            Version ver = new Version(version);
+            if (typeof(Program).Assembly.GetName().Version < ver)
+            {
+                if (MessageBox.Show($"A new version is available (${ver}), would you like to download it?\r\nĐã có phiên bản mới (${ver}), bạn có muốn tải về không?", "New version is available", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000) == DialogResult.Yes)
+                    Process.Start("https://github.com/ElectroHeavenVN/TLCActivator/releases/latest/");
+                mutex.ReleaseMutex();
+                return;
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
