@@ -212,44 +212,51 @@ namespace TLCActivator.GUI
             string ignoredFileHashesPath = Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt";
             if (!File.Exists(ignoredFileHashesPath))
                 File.Create(ignoredFileHashesPath).Close();
-            string gameAssemblyPath = "";
+            List<string> gameAssemblyPaths = new List<string>();
             string accountManagerPath = textBoxExePath.Text;
             DirectoryInfo directoryInfo;
             if (comboBoxType.SelectedItem.ToString() == "AUTOPET225")
             {
                 directoryInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "lib"));
-                gameAssemblyPath = directoryInfo.FullName.TrimEnd('\\') + "\\DragonPro225.jar";
+                gameAssemblyPaths.Add(directoryInfo.FullName.TrimEnd('\\') + "\\DragonPro225.jar");
             }
             else
             {
                 directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text)).GetDirectories().FirstOrDefault(x => x.Name.EndsWith("_Data"));
                 if (directoryInfo != null)
-                    gameAssemblyPath = directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll";
+                    gameAssemblyPaths.Add(directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll");
+                directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text));
+                foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories))
+                    gameAssemblyPaths.Add(file.FullName);
             }
             string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
-            string hashSHA256_GameAssembly = "";
+            List<string> hashSHA256_GameAssemblies = new List<string>();
             string hashSHA256_accountManager = "";
+            for (int i = gameAssemblyPaths.Count - 1; i >= 0; i--)
+            {
+                if (CheckSignature(hashSHA256_GameAssemblies[i]))
+                    gameAssemblyPaths.RemoveAt(i);
+            }
             using (SHA256 sha256 = SHA256.Create())
             {
-                if (!string.IsNullOrEmpty(gameAssemblyPath))
+                foreach (string gameAssemblyPath in gameAssemblyPaths)
                 {
                     using (FileStream fileStream = File.OpenRead(gameAssemblyPath))
                     {
-                        hashSHA256_GameAssembly = BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", string.Empty);
+                        hashSHA256_GameAssemblies.Add(BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", ""));
                     }
                 }
                 using (FileStream fileStream = File.OpenRead(accountManagerPath))
                 {
-                    hashSHA256_accountManager = BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", string.Empty);
+                    hashSHA256_accountManager = BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", "");
                 }
             }
-            if (ignoredFileHashes.Contains(hashSHA256_GameAssembly) && ignoredFileHashes.Contains(hashSHA256_accountManager))
+            if (hashSHA256_GameAssemblies.All(fileHash => ignoredFileHashes.Contains(fileHash)) && ignoredFileHashes.Contains(hashSHA256_accountManager))
                 return;
-            if (Constants.ASSEMBLY_CSHARP_HASHES.Contains(hashSHA256_GameAssembly) && Constants.EXECUTABLE_HASHES.Contains(hashSHA256_accountManager))
+            if (hashSHA256_GameAssemblies.All(fileHash => Constants.ASSEMBLY_CSHARP_HASHES.Contains(fileHash)) && Constants.EXECUTABLE_HASHES.Contains(hashSHA256_accountManager))
                 return;
-            if (!string.IsNullOrEmpty(gameAssemblyPath) && CheckSignature(gameAssemblyPath))
-                gameAssemblyPath = "";
-            File.AppendAllLines(ignoredFileHashesPath, new string[] { hashSHA256_accountManager, hashSHA256_GameAssembly });
+            File.AppendAllText(ignoredFileHashesPath, hashSHA256_accountManager + Environment.NewLine);
+            File.AppendAllLines(ignoredFileHashesPath, hashSHA256_GameAssemblies);
             string message = "It seems like this tool is not officially supported. TLCActivator will try its best to activate the tool. Would you like to send this tool to ElectroHeavenVN?\r\n\r\nCó vẻ như tool này không được hỗ trợ chính thức. TLCActivator sẽ cố gắng hết sức để kích hoạt tool này. Bạn có muốn gửi file tool cho ElectroHeavenVN không?";
             if (index != -1)
             {
@@ -257,11 +264,15 @@ namespace TLCActivator.GUI
             }
             if (MessageBox.Show(this, message, "Share binaries - Sharing is caring", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000) != DialogResult.Yes)
                 return;
-            SendFile(new List<string> { accountManagerPath, gameAssemblyPath });
+            List<string> filePaths = new List<string> { accountManagerPath };
+            filePaths.AddRange(gameAssemblyPaths);
+            SendFile(filePaths);
         }
 
         bool CheckSignature(string filePath)
         {
+            if (filePath.EndsWith(".jar"))
+                return false;
             byte[] data = File.ReadAllBytes(filePath);
             string dosSigStr = Encoding.ASCII.GetString(data, 78, 38);
             return dosSigStr.Contains("ElectroHeavenVN");
@@ -301,9 +312,12 @@ namespace TLCActivator.GUI
                             Thread.Sleep(3000);
                         }
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(this, "An error occured:\r\n" + ex, "An error occured!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                    }
                 }
-                MessageBox.Show(this, "Send files successfully!\r\n\r\nGửi file thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                MessageBox.Show(this, "Send files successfully!\r\nGửi file thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
             }).Start();
         }
     }
