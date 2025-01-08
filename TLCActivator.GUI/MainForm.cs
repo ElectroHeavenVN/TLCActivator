@@ -232,15 +232,16 @@ namespace TLCActivator.GUI
             string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
             List<string> hashSHA256_GameAssemblies = new List<string>();
             string hashSHA256_accountManager = "";
-            for (int i = gameAssemblyPaths.Count - 1; i >= 0; i--)
-            {
-                if (CheckSignature(hashSHA256_GameAssemblies[i]))
-                    gameAssemblyPaths.RemoveAt(i);
-            }
             using (SHA256 sha256 = SHA256.Create())
             {
-                foreach (string gameAssemblyPath in gameAssemblyPaths)
+                for (int i = gameAssemblyPaths.Count - 1; i >= 0; i--)
                 {
+                    string gameAssemblyPath = gameAssemblyPaths[i];
+                    if (CheckSignature(gameAssemblyPath))
+                    {
+                        gameAssemblyPaths.RemoveAt(i);
+                        continue;
+                    }
                     using (FileStream fileStream = File.OpenRead(gameAssemblyPath))
                     {
                         hashSHA256_GameAssemblies.Add(BitConverter.ToString(sha256.ComputeHash(fileStream)).Replace("-", ""));
