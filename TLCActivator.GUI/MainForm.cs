@@ -26,6 +26,7 @@ namespace TLCActivator.GUI
 
         void MainForm_Load(object sender, EventArgs e)
         {
+            Text = $"TLCActivator v{typeof(MainForm).Assembly.GetName().Version} - https://github.com/ElectroHeavenVN/TLCActivator";
             comboBoxType.SelectedIndex = 0;
             buttonSaveShortcut.Font = new Font(buttonSaveShortcut.Font.FontFamily, 12, FontStyle.Regular, GraphicsUnit.Pixel, 0);
             pictureBox.Image = Properties.Resources.TCLMeme;
