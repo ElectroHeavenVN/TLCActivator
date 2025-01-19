@@ -7,9 +7,9 @@
 </div>
 
 ---
-
-<img align="right" src="https://discord.com/api/guilds/1115634791321190420/widget.png?style=banner4" alt="Discord server" />
-
+<a href="https://discord.gg/ekMDKCa5jQ" target="_blank">
+  <img align="right" src="https://discord.com/api/guilds/1115634791321190420/widget.png?style=banner4" alt="Discord server" />
+</a>
 <div id="user-content-toc">
   <ul align="center" style="list-style: none; max-width: 300px;">
     <summary>
@@ -20,7 +20,6 @@
     </summary>
   </ul>
 </div>
-
 <br>
 <br>
 <br>
