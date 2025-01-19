@@ -1,4 +1,31 @@
-# LƯU Ý: Không tải TLCActivator từ các nguồn không tin cậy khác ngoài kho lưu trữ GitHub này. Đảm bảo kiểm tra mã nguồn trước khi sử dụng!
+<div id="user-content-toc">
+  <ul style="list-style: none; max-width: 300px;">
+    <summary>
+      <h1>LƯU Ý: Không tải TLCActivator từ các nguồn không tin cậy khác ngoài kho lưu trữ GitHub này. Đảm bảo kiểm tra mã nguồn trước khi sử dụng!</h1>
+    </summary>
+  </ul>
+</div>
+
+---
+
+<img align="right" src="https://discord.com/api/guilds/1115634791321190420/widget.png?style=banner4" alt="Discord server" />
+
+<div id="user-content-toc">
+  <ul align="center" style="list-style: none; max-width: 300px;">
+    <summary>
+      <h2>Tham gia ngay <a href="https://discord.gg/ekMDKCa5jQ">Server Discord</a>
+      <br>---
+      <br>nơi chia sẻ tool/mod
+      <br>và thảo luận về các game của TeaMobi!</h2>
+    </summary>
+  </ul>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
 ---
 # [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) [[EN](./README_EN.md) | VI]
 Trình kích hoạt phiên bản [Mod Pro](https://thanhlc.com/product/id=30) và gần như tất cả các tool [Ngọc Rồng Online](https://ngocrongonline.com/) khác của [ThanhLC](https://www.facebook.com/lcthanh172).
@@ -37,5 +64,3 @@ Toàn bộ mã nguồn được phát hành dưới giấy phép [AGPLv3](./LICE
 - Những người đã mua giấy phép sử dụng và chia sẻ lại tệp
 
 ---
-
-__Bạn có thắc mắc hay gặp phải vấn đề? Hãy cho mình biết! Bạn có thể tạo issue tại đây hoặc yêu cầu trợ giúp và yêu cầu kích hoạt thêm sản phẩm khác của [ThanhLC](https://www.facebook.com/lcthanh172) trong [Server Discord](https://discord.gg/ekMDKCa5jQ).__
