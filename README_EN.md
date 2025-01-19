@@ -1,4 +1,30 @@
-# CAUTION: Do not download TLCActivator from any untrusted sources other than this GitHub repository. Make sure to verify the source code before using!
+<div id="user-content-toc">
+  <ul style="list-style: none; max-width: 300px;">
+    <summary>
+      <h1>CAUTION: Do not download TLCActivator from any untrusted sources other than this GitHub repository. Make sure to verify the source code before using!</h1>
+    </summary>
+  </ul>
+</div>
+
+---
+<a href="https://discord.gg/ekMDKCa5jQ" target="_blank">
+  <img align="right" src="https://discord.com/api/guilds/1115634791321190420/widget.png?style=banner4" alt="Discord server" />
+</a>
+<div id="user-content-toc">
+  <ul align="center" style="list-style: none; max-width: 300px;">
+    <summary>
+      <h2>Join <a href="https://discord.gg/ekMDKCa5jQ">my Discord Server</a>
+      <br>---
+      <br>A place to get free tools/mods
+      <br>and discuss TeaMobi games!</h2>
+    </summary>
+  </ul>
+</div>
+<br>
+<br>
+<br>
+<br>
+
 ---
 # [TLCActivator](https://github.com/ElectroHeavenVN/TLCActivator) [EN | [VI](./README.md)]
 Activator for [ThanhLC](https://www.facebook.com/lcthanh172)'s [Mod Pro](https://thanhlc.com/product/id=30) and (almost) any other [Dragon Boy Online](https://ngocrongonline.com/) tools made by him.
