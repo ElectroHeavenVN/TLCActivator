@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Linq;
 using HarmonyLib;
+using System.Diagnostics;
 
 namespace TLCActivator.LicenseCheckBypass
 {
@@ -36,6 +37,7 @@ namespace TLCActivator.LicenseCheckBypass
             }
 #if DEBUG
             AllocConsole();
+            Console.Title = "TLCActivator Debug Console - " + Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
 #endif
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             try

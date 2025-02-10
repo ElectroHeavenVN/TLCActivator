@@ -138,6 +138,8 @@ namespace TLCActivator.GUI
             "AUTONVBM",
             "PORATASHARP237",
             "GODZILLAANDKONG",
+
+            "TREOGTL",
         };
 
         internal static readonly string[] PRODUCT_TYPES = new string[]
@@ -150,6 +152,8 @@ namespace TLCActivator.GUI
             "toolnvhangngaypro",
             "toolmvbt",
             "toolgodzillaandkong",
+
+            "TOOL_TRAIN_SUIT_TIME",
 
             "Unknown"
         };
@@ -164,6 +168,8 @@ namespace TLCActivator.GUI
             "[ThanhLc] Tool nhiệm vụ bò mộng",
             "[ThanhLc] Tool up mảnh vỡ bông tai",
             "[ThanhLc] Tool Godzilla và Kong",
+
+            "[ThanhLc] Tool treo giáp tập luyện",
         };
 
         internal static readonly string PRODUCT_LICENSE_NAME = "[ThanhLc] Product License";
