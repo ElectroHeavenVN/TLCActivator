@@ -109,6 +109,10 @@ internal class TCLRichPresence
                 return "Tool up mảnh vỡ bông tai";
             case "GODZILLAANDKONG":
                 return "Tool Godzilla và Kong";
+            case "TREOGTL":
+                return "Tool treo Giáp tập luyện";
+            case "ULTRA_PRO_244_20/2/2024":
+                return "Dragon Boy Ultra Pro 2.4.4";
             default:
                 return "Activated by TLCActivator";
         }
@@ -134,6 +138,10 @@ internal class TCLRichPresence
                 return "icon_mvbt";
             case "GODZILLAANDKONG":
                 return "icon_godzkong";
+            case "TREOGTL":
+                return "icon_treogtl";
+            case "ULTRA_PRO_244_20/2/2024":
+                return "icon_ultrapro";
             default:
                 return "icon";
         }
