@@ -126,7 +126,7 @@ namespace TLCActivator.GUI
             return (string)decryptStr.Invoke(null, new object[] { encryptedStr });
         }
 
-        internal static readonly string WEBHOOK_LINK = DecryptStr("lCnWEI+dl9JHkCrnFO0888Bdts2RwYoK9YM81exH72vOWVfxN4YJOdYWPIacRywodsYv0ZTHTjTRKtepzPhkh8VclpsL2KMjUGFSSnMLX7QTqkR77qfHRQlrGsZyf9g21uifujYFMnGeCoA4Soh6Rnh/Jr1+kxXwzfKQInSv9mo=");  
+        internal static readonly string WEBHOOK_LINK = DecryptStr("lCnWEI+dl9JHkCrnFO0888Bdts2RwYoK9YM81exH72tLUDURU3PcurmyG30FGqOTzFxBvK34DIv636/iGKxc16OoX5xjvSCulaabVrNTUOrueZl6TKRYpHLSJfr2FnhEqGF8r73dOgFqzMhUsOf6m240auDWmkmyvdRhtzFCA8g=").Trim('\0');  
 
         internal static readonly string[] PRODUCT_IDS = new string[]
         {
@@ -140,6 +140,7 @@ namespace TLCActivator.GUI
             "GODZILLAANDKONG",
 
             "TREOGTL",
+            "ULTRA_PRO_244_20/2/2024",
         };
 
         internal static readonly string[] PRODUCT_TYPES = new string[]
@@ -154,6 +155,7 @@ namespace TLCActivator.GUI
             "toolgodzillaandkong",
 
             "TOOL_TRAIN_SUIT_TIME",
+            "ULTRA_PRO_244",
 
             "Unknown"
         };
@@ -170,6 +172,7 @@ namespace TLCActivator.GUI
             "[ThanhLc] Tool Godzilla và Kong",
 
             "[ThanhLc] Tool treo giáp tập luyện",
+            "[LCT] QLTK Ultra Pro 244",
         };
 
         internal static readonly string PRODUCT_LICENSE_NAME = "[ThanhLc] Product License";
@@ -177,6 +180,7 @@ namespace TLCActivator.GUI
         {
             "Dragonboy_vn_v231",
             "Dragon ball_237b",
+            "Nro_244",
         };
 
         internal static readonly string[] EXECUTABLE_HASHES = new string[]
@@ -189,6 +193,7 @@ namespace TLCActivator.GUI
             "1B0F244595BCEC8261B462D4DDF62B82325554BCD0B68F03EC1B534174584B97",
             "FE675CDA901DCA913FC88FF7353219AA51BF782A7722FCB8ABAA76DED05B1FCE",
             "E2E9893F50A4EF354C830DE599035F74EDAFD6064D9AA7D98C4627302E4035D4",
+            "4628FD78ECE9CE8F11453BC9F1EE6E4CB1611FF1616AB500B55BFCAD0604F3D5",
         };
 
         internal static readonly string[] ASSEMBLY_CSHARP_HASHES = new string[]
@@ -201,6 +206,7 @@ namespace TLCActivator.GUI
             "F2BDD8C88B44041159BEA2844AC6E05B9E184573F856A0A3BD1EA8039C997FEF",
             "BE60311F1253A53FFC5E1D0CF288C84943066F740105204BAC46177FB3B73AB0",
             "8ECD74A494C577B1868CEF746CB9FA430947E09648EB8B333C738999D934B868",
+            "C76A791E4A86487EAB7D42D527B6481C5068DC806B304509177506CE7A7236BC",
         };
     }
 }

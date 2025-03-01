@@ -40,6 +40,7 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string requestUri, ref Task<HttpResponseMessage> __result)
             {
+                Console.WriteLine(requestUri);
                 if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI"))
                     return true;
                 HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
@@ -58,6 +59,30 @@ namespace TLCActivator.LicenseCheckBypass
                 return false;
             }
         }
+        
+        [HarmonyPatch(typeof(HttpClient), nameof(HttpClient.GetStringAsync), typeof(string))]
+        public class HttpClientGetStringAsyncHook
+        {
+            static bool Prefix(string requestUri, ref Task<string> __result)
+            {
+                Console.WriteLine(requestUri);
+                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI"))
+                    return true;
+                string activatedOptions = "";
+                if (StringEquals(Main.productType, "thanhlcpropc") || StringEquals(Main.productType, "modnrsd"))    //RB9APK and K32KIOS is not available as they are meant for Android and iOS devices
+                {
+                    for (int i = 0; i < 10; i++)
+                        activatedOptions += $"[Option{i + 1}:T]-";
+                    activatedOptions = activatedOptions.TrimEnd('-');
+                }
+                else
+                    activatedOptions = "1";
+                string version = "0.0";
+                string licenseString = $"{Main.licenseKey}|{Main.productType}|{activatedOptions}|9999-12-31|thanhloncho|hoantat|{version}|endkey|";
+                __result = Task.FromResult($"<head></head><body><table class=\"waffle\"><tbody><tr><td class=\"s1\">StartLicense</td></tr><tr><td class=\"s1\">{licenseString}</td></tr><tr><td class=\"s2\">EndLicense</td></tr></tbody></table></body>");
+                return false;
+            }
+        }
 
         [HarmonyPatch(typeof(Control), nameof(Control.Text), MethodType.Setter)]
         public class ControlTextHook
@@ -66,7 +91,7 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (string.IsNullOrEmpty(value))
                     return true;
-                if ((value.StartsWith("[thanhlc.com] [HSD:") || value.StartsWith("[thanhlc.com] HSD:") || value.StartsWith("\ud835\udcd3\ud835\udc93\ud835\udc82\ud835\udc88\ud835\udc90\ud835\udc8f \ud835\udcd1\ud835\udc82\ud835\udc8d\ud835\udc8d \ud835\udcdf\ud835\udc93\ud835\udc90 \ud835\udfd0.\ud835\udfd1.\ud835\udfd5")) && __instance is Form)
+                if ((value.StartsWith("[thanhlc.com] [HSD:") || value.StartsWith("[thanhlc.com] HSD:") || value.StartsWith("\ud835\udcd3\ud835\udc93\ud835\udc82\ud835\udc88\ud835\udc90\ud835\udc8f \ud835\udcd1\ud835\udc82\ud835\udc8d\ud835\udc8d \ud835\udcdf\ud835\udc93\ud835\udc90 \ud835\udfd0.\ud835\udfd1.\ud835\udfd5") || value.StartsWith("Dragon Boy Ultra Pro")) && __instance is Form)
                 {
                     string productID = Main.productID;
                     if (Main.IsProductIDUnknown)
@@ -74,9 +99,9 @@ namespace TLCActivator.LicenseCheckBypass
                     value = $"TLC - {productID} [{Main.productType}] [Activated by TLCActivator - https://github.com/ElectroHeavenVN/TLCActivator]";
                     if (!isFormTitleSet && Main.IsProductIDUnknown)
                     {
+                        isFormTitleSet = true;
                         MessageBox.Show($"Product ID: {Main.newProductID}\r\nProduct type: {Main.productType}", "TLCActivator - Information", MessageBoxButtons.OK, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                     }
-                    isFormTitleSet = true;
                 }
                 else if (value.Contains("thanhloncho"))
                 {

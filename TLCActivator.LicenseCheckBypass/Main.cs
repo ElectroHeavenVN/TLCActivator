@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Linq;
 using HarmonyLib;
 using System.Diagnostics;
+using System.Text;
 
 namespace TLCActivator.LicenseCheckBypass
 {
@@ -28,6 +29,9 @@ namespace TLCActivator.LicenseCheckBypass
         [DllImport("kernel32.dll")]
         static extern bool AllocConsole();
 
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetStdHandle(int nStdHandle);
+
         public static int Initialize(string arg)
         {
             if (AppDomain.CurrentDomain.GetAssemblies().Where(a => Path.GetExtension(a.Location) == ".exe").Any(a => a.Location.Contains("AppData\\Local\\Temp")))
@@ -37,11 +41,14 @@ namespace TLCActivator.LicenseCheckBypass
             }
 #if DEBUG
             AllocConsole();
+            Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+            Console.OutputEncoding = Encoding.UTF8;
             Console.Title = "TLCActivator Debug Console - " + Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
 #endif
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             try
             {
+                Console.WriteLine("Installing hooks...");
                 AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 Harmony harmony = new Harmony("TLCActivator.LicenseCheckBypass");
                 harmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -73,6 +80,7 @@ namespace TLCActivator.LicenseCheckBypass
                     catch { }
                     Thread.Sleep(1000);
                 }
+                Console.WriteLine("Hooks installed.");
             }
             catch (Exception ex)
             {

@@ -282,9 +282,10 @@ namespace TLCActivator.GUI
 
         void SendFile(List<string> filePaths)
         {
-            new Thread(() =>
+            new Thread(async () =>
             {
                 int count = filePaths.Count;
+                bool error = false;
                 while (filePaths.Count > 0)
                 {
                     try
@@ -310,16 +311,20 @@ namespace TLCActivator.GUI
                                 totalSize += content.Length;
                                 filePaths.RemoveAt(filePaths.Count - 1);
                             }
-                            httpClient.PostAsync(Constants.WEBHOOK_LINK, form).Wait();
+                            var result = await httpClient.PostAsync(Constants.WEBHOOK_LINK, form);
+                            string s = await result.Content.ReadAsStringAsync();
+                            result.EnsureSuccessStatusCode();
                             Thread.Sleep(3000);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(this, "An error occured:\r\n" + ex, "An error occured!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                        Invoke(new MethodInvoker(() => MessageBox.Show(this, "An error occured:\r\n" + ex, "An error occured!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000)));
+                        error = true;
                     }
                 }
-                MessageBox.Show(this, "Send files successfully!\r\nGửi file thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                if (!error)
+                    Invoke(new MethodInvoker(() => MessageBox.Show(this, "Send files successfully!\r\nGửi file thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000)));
             }).Start();
         }
     }
