@@ -29,7 +29,7 @@ namespace TLCActivator.GUI
             Text = $"TLCActivator v{typeof(MainForm).Assembly.GetName().Version} - https://github.com/ElectroHeavenVN/TLCActivator";
             comboBoxType.SelectedIndex = 0;
             buttonSaveShortcut.Font = new Font(buttonSaveShortcut.Font.FontFamily, 12, FontStyle.Regular, GraphicsUnit.Pixel, 0);
-            pictureBox.Image = Properties.Resources.TCLMeme;
+            //pictureBox.Image = Properties.Resources.TCLMeme;
             imgIndex = 3;
             CheckInjectorExists();
         }
