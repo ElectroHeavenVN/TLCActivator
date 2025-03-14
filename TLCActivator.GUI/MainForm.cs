@@ -227,7 +227,7 @@ namespace TLCActivator.GUI
                 if (directoryInfo != null)
                     gameAssemblyPaths.Add(directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll");
                 directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text));
-                foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories))
+                foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories).Where(f => !f.FullName.Contains("jre\\lib\\"))) 
                     gameAssemblyPaths.Add(file.FullName);
             }
             string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
