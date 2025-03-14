@@ -141,6 +141,7 @@ namespace TLCActivator.GUI
             "TREOGTL",
             "ULTRA_PRO_244_20/2/2024",
             "TOOLTRAINQUAIV1",
+            "AUTONVBM", //new ver
         };
 
         internal static readonly string[] PRODUCT_TYPES = new string[]
@@ -156,6 +157,7 @@ namespace TLCActivator.GUI
             "TOOL_TRAIN_SUIT_TIME",
             "ULTRA_PRO_244",
             "TOOL_FARM_MOB",
+            "TOOL_BORA_DAILY_TASK", //new ver
 
             "Unknown"
         };
@@ -172,7 +174,8 @@ namespace TLCActivator.GUI
             "[ThanhLc] Tool Godzilla và Kong",
             "[ThanhLc] Tool treo giáp tập luyện",
             "[LCT] QLTK Ultra Pro 244",
-            "[ThanhLc] Tool train quái.exe",
+            "[ThanhLc] Tool train quái",
+            "[ThanhLc] Tool nhiệm vụ bò mộng",  //new ver
         };
 
         internal static readonly string PRODUCT_LICENSE_NAME = "[ThanhLc] Product License";
@@ -198,6 +201,8 @@ namespace TLCActivator.GUI
             "22F9425AE7D5140638A5C49D86E41820E99AF7A60E6E1D41C2EED62AB0E27D72",
             "181EAF2BD5F0951BE242A9BF2C7E63F3B562A42FFEB8212FA270B4963270EC2E",
             "8FF61F47F73D1D30436599D42F5F32D65C1535120B53DEDF40D9004296879941",
+            "885D8A01404489C0EFDDB42B345830C4FEAE72DA3C3D142E26C2D0FB71CD4003",
+            "BEF01C4485F4389A74620097928052A2396DC680A859F0D1D487789ED368F521",
         };
 
         internal static readonly string[] ASSEMBLY_CSHARP_HASHES = new string[]
@@ -212,6 +217,7 @@ namespace TLCActivator.GUI
             "8ECD74A494C577B1868CEF746CB9FA430947E09648EB8B333C738999D934B868",
             "C76A791E4A86487EAB7D42D527B6481C5068DC806B304509177506CE7A7236BC",
             "3430ECC1F737B28CCB2884E9B4D5542F7C7BB03A5044EBBFD027523B55FC65C9",
+            "181EAF2BD5F0951BE242A9BF2C7E63F3B562A42FFEB8212FA270B4963270EC2E",
         };
     }
 }

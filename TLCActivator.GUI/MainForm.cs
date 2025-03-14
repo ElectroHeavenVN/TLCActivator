@@ -47,11 +47,7 @@ namespace TLCActivator.GUI
                 buttonRun.BackColor = Color.FromArgb(255, 255, 192);
                 buttonSaveShortcut.BackColor = Color.White;
                 buttonRun.Enabled = buttonSaveShortcut.Enabled = true;
-                int index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
-                if (index != -1)
-                    comboBoxType.SelectedIndex = index;
-                else
-                    comboBoxType.SelectedIndex = comboBoxType.Items.Count - 1;
+                UpdateSelectedType(out _);
             }
         }
 
@@ -171,6 +167,19 @@ namespace TLCActivator.GUI
             }
         }
 
+        void UpdateSelectedType(out int index)
+        {
+            index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
+            if (index != -1)
+            {
+                comboBoxType.SelectedIndex = index;
+                if (Constants.EXECUTABLE_NAMES[index] == "[ThanhLc] Tool nhiệm vụ bò mộng" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
+                    comboBoxType.SelectedIndex = index = Array.FindLastIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
+            }
+            else
+                comboBoxType.SelectedIndex = index = comboBoxType.Items.Count - 1;
+        }
+
         bool CheckInjectorExists(bool dontExit = false)
         {
             if (!File.Exists(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe"))
@@ -205,11 +214,7 @@ namespace TLCActivator.GUI
 
         void TryShowShareFileDialog()
         {
-            int index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
-            if (index != -1)
-                comboBoxType.SelectedIndex = index;
-            else
-                comboBoxType.SelectedIndex = comboBoxType.Items.Count - 1;
+            UpdateSelectedType(out int index);
             string ignoredFileHashesPath = Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt";
             if (!File.Exists(ignoredFileHashesPath))
                 File.Create(ignoredFileHashesPath).Close();
