@@ -138,9 +138,9 @@ namespace TLCActivator.GUI
             "AUTONVBM",
             "PORATASHARP237",
             "GODZILLAANDKONG",
-
             "TREOGTL",
             "ULTRA_PRO_244_20/2/2024",
+            "TOOLTRAINQUAIV1",
         };
 
         internal static readonly string[] PRODUCT_TYPES = new string[]
@@ -153,9 +153,9 @@ namespace TLCActivator.GUI
             "toolnvhangngaypro",
             "toolmvbt",
             "toolgodzillaandkong",
-
             "TOOL_TRAIN_SUIT_TIME",
             "ULTRA_PRO_244",
+            "TOOL_FARM_MOB",
 
             "Unknown"
         };
@@ -170,9 +170,9 @@ namespace TLCActivator.GUI
             "[ThanhLc] Tool nhiệm vụ bò mộng",
             "[ThanhLc] Tool up mảnh vỡ bông tai",
             "[ThanhLc] Tool Godzilla và Kong",
-
             "[ThanhLc] Tool treo giáp tập luyện",
             "[LCT] QLTK Ultra Pro 244",
+            "[ThanhLc] Tool train quái.exe",
         };
 
         internal static readonly string PRODUCT_LICENSE_NAME = "[ThanhLc] Product License";
@@ -194,6 +194,10 @@ namespace TLCActivator.GUI
             "FE675CDA901DCA913FC88FF7353219AA51BF782A7722FCB8ABAA76DED05B1FCE",
             "E2E9893F50A4EF354C830DE599035F74EDAFD6064D9AA7D98C4627302E4035D4",
             "4628FD78ECE9CE8F11453BC9F1EE6E4CB1611FF1616AB500B55BFCAD0604F3D5", "E9735F94AB6A8F06C7D95A078AEFDD91AB115A655614A476ACB4C10AB8CCA2B2",
+            "885D8A01404489C0EFDDB42B345830C4FEAE72DA3C3D142E26C2D0FB71CD4003",
+            "22F9425AE7D5140638A5C49D86E41820E99AF7A60E6E1D41C2EED62AB0E27D72",
+            "181EAF2BD5F0951BE242A9BF2C7E63F3B562A42FFEB8212FA270B4963270EC2E",
+            "8FF61F47F73D1D30436599D42F5F32D65C1535120B53DEDF40D9004296879941",
         };
 
         internal static readonly string[] ASSEMBLY_CSHARP_HASHES = new string[]
@@ -207,6 +211,7 @@ namespace TLCActivator.GUI
             "BE60311F1253A53FFC5E1D0CF288C84943066F740105204BAC46177FB3B73AB0",
             "8ECD74A494C577B1868CEF746CB9FA430947E09648EB8B333C738999D934B868",
             "C76A791E4A86487EAB7D42D527B6481C5068DC806B304509177506CE7A7236BC",
+            "3430ECC1F737B28CCB2884E9B4D5542F7C7BB03A5044EBBFD027523B55FC65C9",
         };
     }
 }

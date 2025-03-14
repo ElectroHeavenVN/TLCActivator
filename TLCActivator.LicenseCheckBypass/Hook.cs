@@ -41,7 +41,7 @@ namespace TLCActivator.LicenseCheckBypass
             static bool Prefix(string requestUri, ref Task<HttpResponseMessage> __result)
             {
                 Console.WriteLine(requestUri);
-                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI"))
+                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !requestUri.Contains("thanhlc.com/check/license"))
                     return true;
                 HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
                 string activatedOptions = "";
@@ -66,7 +66,7 @@ namespace TLCActivator.LicenseCheckBypass
             static bool Prefix(string requestUri, ref Task<string> __result)
             {
                 Console.WriteLine(requestUri);
-                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI"))
+                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !requestUri.Contains("thanhlc.com/check/license"))
                     return true;
                 string activatedOptions = "";
                 if (StringEquals(Main.productType, "thanhlcpropc") || StringEquals(Main.productType, "modnrsd"))    //RB9APK and K32KIOS is not available as they are meant for Android and iOS devices

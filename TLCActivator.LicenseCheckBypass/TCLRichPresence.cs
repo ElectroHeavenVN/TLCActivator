@@ -113,6 +113,8 @@ internal class TCLRichPresence
                 return "Tool treo Giáp tập luyện";
             case "ULTRA_PRO_244_20/2/2024":
                 return "Dragon Boy Ultra Pro 2.4.4";
+            case "TOOLTRAINQUAIV1":
+                return "Tool Train Quái v1";
             default:
                 return "Activated by TLCActivator";
         }
@@ -142,6 +144,8 @@ internal class TCLRichPresence
                 return "icon_treogtl";
             case "ULTRA_PRO_244_20/2/2024":
                 return "icon_ultrapro";
+            case "TOOLTRAINQUAIV1":
+                return "icon_trainquaiv1";
             default:
                 return "icon";
         }
