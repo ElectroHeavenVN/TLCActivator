@@ -36,7 +36,7 @@ namespace TLCActivator.GUI
 
         void textBoxExePath_TextChanged(object sender, EventArgs e)
         {
-            if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe" || Path.GetFileName(textBoxExePath.Text).Contains(Constants.PRODUCT_LICENSE_NAME) || Constants.GAME_EXECUTABLE_NAMES.Any(x => Path.GetFileName(textBoxExePath.Text).Contains(x)))
+            if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe" || Path.GetFileName(textBoxExePath.Text).Contains(Constants.PRODUCT_LICENSE_NAME) || Path.GetFileName(textBoxExePath.Text).Contains("TLCActivator") || Constants.GAME_EXECUTABLE_NAMES.Any(x => Path.GetFileName(textBoxExePath.Text).Contains(x)))
             {
                 buttonRun.BackColor = buttonSaveShortcut.BackColor = Color.FromArgb(255, 128, 128);
                 buttonRun.Enabled = buttonSaveShortcut.Enabled = false;
