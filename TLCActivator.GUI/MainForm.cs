@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -176,7 +177,7 @@ namespace TLCActivator.GUI
             if (index != -1)
             {
                 comboBoxType.SelectedIndex = index;
-                if (ToolAssemblyFile.tools[index].ExecutableName == "[ThanhLc] Tool nhiệm vụ bò mộng" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
+                if (ToolAssemblyFile.tools[index].ProductID == "AUTONVBM" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
                     comboBoxType.SelectedIndex = index = Array.FindLastIndex(ToolAssemblyFile.tools, x => Path.GetFileNameWithoutExtension(textBoxExePath.Text) == x.ExecutableName);
             }
             else
@@ -217,18 +218,18 @@ namespace TLCActivator.GUI
 
         void TryShowShareFileDialog()
         {
-            UpdateSelectedType(out int index);
             string ignoredFileHashesPath = Path.GetDirectoryName(typeof(MainForm).Assembly.Location).TrimEnd('\\') + "\\hashes.txt";
             if (!File.Exists(ignoredFileHashesPath))
                 File.Create(ignoredFileHashesPath).Close();
             List<string> gameAssemblyPaths = new List<string>();
             string accountManagerPath = textBoxExePath.Text;
             DirectoryInfo directoryInfo;
-            if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
+            int index = comboBoxType.SelectedIndex;
+            if (index != comboBoxType.Items.Count - 1)
             {
                 if (File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), ToolAssemblyFile.tools[index].RelativeGameAssemblyPath)))
                     gameAssemblyPaths.Add(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), ToolAssemblyFile.tools[index].RelativeGameAssemblyPath));
-            }    
+            }
             else
             {
                 directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text)).GetDirectories().FirstOrDefault(x => x.Name.EndsWith("_Data"));
@@ -236,7 +237,7 @@ namespace TLCActivator.GUI
                     gameAssemblyPaths.Add(directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll");
             }
             directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text));
-            foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories).Where(f => !f.FullName.Contains("jre\\lib\\"))) 
+            foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories).Where(f => !f.FullName.Contains("jre\\lib\\")))
                 if (!gameAssemblyPaths.Contains(file.FullName))
                     gameAssemblyPaths.Add(file.FullName);
             string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
