@@ -26,14 +26,3 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("8b81225d-fc7a-43bb-9c2b-580c3031cd45")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-[assembly: AssemblyVersion("2.0.1.2")]
-[assembly: AssemblyFileVersion("2.0.1.2")]
-[assembly: AssemblyKeyFile("../TLCActivator.snk")]

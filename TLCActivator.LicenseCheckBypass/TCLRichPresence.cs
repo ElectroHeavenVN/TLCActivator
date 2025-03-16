@@ -91,63 +91,17 @@ internal class TCLRichPresence
 
     static string GetDetail()
     {
-        switch (Main.productID)
-        {
-            case "DRAGONBALLPRO237":
-                return "Dragon Ball Pro 2.3.7 v2.0";
-            case "AUTOPET237":
-                return "Tool hỗ trợ up đệ tử Pro";
-            case "TOOLUPSKH":
-                return "Tool up Set Kích hoạt";
-            case "AUTOPET225":
-                return "Tool hỗ trợ up đệ tử Java";
-            case "TRAINSKILL9":
-                return "Tool Train skill 9";
-            case "AUTONVBM":
-                return "Tool nhiệm vụ hàng ngày";
-            case "PORATASHARP237":
-                return "Tool up mảnh vỡ bông tai";
-            case "GODZILLAANDKONG":
-                return "Tool Godzilla và Kong";
-            case "TREOGTL":
-                return "Tool treo Giáp tập luyện";
-            case "ULTRA_PRO_244_20/2/2024":
-                return "Dragon Boy Ultra Pro 2.4.4";
-            case "TOOLTRAINQUAIV1":
-                return "Tool Train Quái v1";
-            default:
-                return "Activated by TLCActivator";
-        }
+        ToolAssemblyFile toolAssemblyFile = ToolAssemblyFile.GetByProductID(Main.productID);
+        if (toolAssemblyFile != null)
+            return toolAssemblyFile.RichPresenceDetails;
+        return "Activated by TLCActivator";
     }
 
     static string GetLargeImageKey()
     {
-        switch (Main.productID)
-        {
-            case "DRAGONBALLPRO237":
-                return "icon_dboprov2";
-            case "AUTOPET237":
-                return "icon_updepro";
-            case "TOOLUPSKH":
-                return "icon_upskh";
-            case "AUTOPET225":
-                return "icon_updejava";
-            case "TRAINSKILL9":
-                return "icon_trainskill9";
-            case "AUTONVBM":
-                return "icon_nvbm";
-            case "PORATASHARP237":
-                return "icon_mvbt";
-            case "GODZILLAANDKONG":
-                return "icon_godzkong";
-            case "TREOGTL":
-                return "icon_treogtl";
-            case "ULTRA_PRO_244_20/2/2024":
-                return "icon_ultrapro";
-            case "TOOLTRAINQUAIV1":
-                return "icon_trainquaiv1";
-            default:
-                return "icon";
-        }
+        ToolAssemblyFile toolAssemblyFile = ToolAssemblyFile.GetByProductID(Main.productID);
+        if (toolAssemblyFile != null)
+            return toolAssemblyFile.RichPresenceLargeImageKey;
+        return "icon";
     }
 }

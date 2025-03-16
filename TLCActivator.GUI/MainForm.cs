@@ -20,7 +20,7 @@ namespace TLCActivator.GUI
         public MainForm()
         {
             InitializeComponent();
-            comboBoxType.Items.AddRange(Constants.PRODUCT_IDS);
+            comboBoxType.Items.AddRange(ToolAssemblyFile.GetProductIDs());
             comboBoxType.Items.Add("Unknown");
         }
 
@@ -36,7 +36,7 @@ namespace TLCActivator.GUI
 
         void textBoxExePath_TextChanged(object sender, EventArgs e)
         {
-            if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe" || Path.GetFileName(textBoxExePath.Text).Contains(Constants.PRODUCT_LICENSE_NAME) || Path.GetFileName(textBoxExePath.Text).Contains("TLCActivator") || Constants.GAME_EXECUTABLE_NAMES.Any(x => Path.GetFileName(textBoxExePath.Text).Contains(x)))
+            if (!File.Exists(textBoxExePath.Text) || Path.GetExtension(textBoxExePath.Text) != ".exe" || Path.GetFileName(textBoxExePath.Text).Contains(Constants.PRODUCT_LICENSE_NAME) || Path.GetFileName(textBoxExePath.Text).Contains("TLCActivator") || Constants.GAME_EXECUTABLE_NAMES.Any(x => Path.GetFileNameWithoutExtension(textBoxExePath.Text) == x))
             {
                 buttonRun.BackColor = buttonSaveShortcut.BackColor = Color.FromArgb(255, 128, 128);
                 buttonRun.Enabled = buttonSaveShortcut.Enabled = false;
@@ -138,7 +138,7 @@ namespace TLCActivator.GUI
             if (!CheckMonoDLL())
                 return;
             TryShowShareFileDialog();
-            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
+            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType}");
         }
 
         void textBoxExePath_DragEnter(object sender, DragEventArgs e)
@@ -163,18 +163,18 @@ namespace TLCActivator.GUI
             };
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Shortcut.CreateShortcut(saveFileDialog.FileName, Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {Constants.PRODUCT_TYPES[comboBoxType.SelectedIndex]}");
+                Shortcut.CreateShortcut(saveFileDialog.FileName, Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType}");
             }
         }
 
         void UpdateSelectedType(out int index)
         {
-            index = Array.FindIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
+            index = Array.FindIndex(ToolAssemblyFile.tools, x => Path.GetFileNameWithoutExtension(textBoxExePath.Text) == x.ExecutableName);
             if (index != -1)
             {
                 comboBoxType.SelectedIndex = index;
-                if (Constants.EXECUTABLE_NAMES[index] == "[ThanhLc] Tool nhiệm vụ bò mộng" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
-                    comboBoxType.SelectedIndex = index = Array.FindLastIndex(Constants.EXECUTABLE_NAMES, x => Path.GetFileName(textBoxExePath.Text).Contains(x));
+                if (ToolAssemblyFile.tools[index].ExecutableName == "[ThanhLc] Tool nhiệm vụ bò mộng" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
+                    comboBoxType.SelectedIndex = index = Array.FindLastIndex(ToolAssemblyFile.tools, x => Path.GetFileNameWithoutExtension(textBoxExePath.Text) == x.ExecutableName);
             }
             else
                 comboBoxType.SelectedIndex = index = comboBoxType.Items.Count - 1;
@@ -221,20 +221,21 @@ namespace TLCActivator.GUI
             List<string> gameAssemblyPaths = new List<string>();
             string accountManagerPath = textBoxExePath.Text;
             DirectoryInfo directoryInfo;
-            if (comboBoxType.SelectedItem.ToString() == "AUTOPET225")
+            if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
             {
-                directoryInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "lib"));
-                gameAssemblyPaths.Add(directoryInfo.FullName.TrimEnd('\\') + "\\DragonPro225.jar");
-            }
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), ToolAssemblyFile.tools[index].RelativeGameAssemblyPath)))
+                    gameAssemblyPaths.Add(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), ToolAssemblyFile.tools[index].RelativeGameAssemblyPath));
+            }    
             else
             {
                 directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text)).GetDirectories().FirstOrDefault(x => x.Name.EndsWith("_Data"));
                 if (directoryInfo != null)
                     gameAssemblyPaths.Add(directoryInfo.FullName.TrimEnd('\\') + "\\Managed\\Assembly-CSharp.dll");
-                directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text));
-                foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories).Where(f => !f.FullName.Contains("jre\\lib\\"))) 
-                    gameAssemblyPaths.Add(file.FullName);
             }
+            directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text));
+            foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories).Where(f => !f.FullName.Contains("jre\\lib\\"))) 
+                if (!gameAssemblyPaths.Contains(file.FullName))
+                    gameAssemblyPaths.Add(file.FullName);
             string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
             List<string> hashSHA256_GameAssemblies = new List<string>();
             string hashSHA256_accountManager = "";
@@ -260,7 +261,7 @@ namespace TLCActivator.GUI
             }
             if (hashSHA256_GameAssemblies.All(fileHash => ignoredFileHashes.Contains(fileHash)) && ignoredFileHashes.Contains(hashSHA256_accountManager))
                 return;
-            if (hashSHA256_GameAssemblies.All(fileHash => Constants.ASSEMBLY_CSHARP_HASHES.Contains(fileHash)) && Constants.EXECUTABLE_HASHES.Contains(hashSHA256_accountManager))
+            if (hashSHA256_GameAssemblies.All(fileHash => ToolAssemblyFile.GameAssemblyHashMatch(fileHash)) && ToolAssemblyFile.HashMatch(hashSHA256_accountManager))
                 return;
             File.AppendAllText(ignoredFileHashesPath, hashSHA256_accountManager + Environment.NewLine);
             File.AppendAllLines(ignoredFileHashesPath, hashSHA256_GameAssemblies);

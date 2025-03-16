@@ -27,15 +27,16 @@ namespace TLCActivator.Injector
                 MessageBox.Show("Please extract the file before running!\r\nVui lòng giải nén file trước!", "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                 return;
             }
-            AllocConsole();
             if (args.Length != 3)
             {
+                AllocConsole();
                 Console.WriteLine("Usage: TLCActivator.Injector.exe <executable path> <product id> <product type>");
                 Console.ReadLine();
                 return;
             }
             if (!File.Exists(args[0]))
             {
+                AllocConsole();
                 Console.WriteLine("Executable file not found.");
                 Console.ReadLine();
                 return;
@@ -69,13 +70,15 @@ namespace TLCActivator.Injector
                 if (ExtremeDumper.Injecting.Injector.InjectManagedAndWait((uint)process.Id, Path.GetDirectoryName(typeof(Program).Assembly.Location) + "\\Lib\\TLCActivator.LicenseCheckBypass.dll", "TLCActivator.LicenseCheckBypass.Main", "Initialize", string.Join("|", args[1], args[2]).Trim(), InjectionClrVersion.V4, out _))
                     Console.WriteLine("Injection succeeded.");
                 else
-                    Console.WriteLine($"Injection failed. Check the {Path.GetDirectoryName(args[0])}/ex.txt file for more information.");
+                {
+                    MessageBox.Show($"Injection failed. Check the {Path.GetDirectoryName(args[0])}/ex.txt file for more information.", "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                }
                 Console.WriteLine("Exit after 3 seconds...");
                 Thread.Sleep(3000);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                MessageBox.Show(ex.ToString(), "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                 Console.ReadLine();
             }
         }

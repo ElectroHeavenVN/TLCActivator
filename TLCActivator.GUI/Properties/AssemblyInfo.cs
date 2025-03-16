@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("TLCActivator.GUI")]
 [assembly: AssemblyDescription("GUI application for activating ThanhLC's Account Manager")]
+[assembly: AssemblyMetadata("RepositoryUrl", "https://github.com/ElectroHeavenVN/TLCActivator/")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
 #else
@@ -25,14 +26,3 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("92a62e36-5204-4a8d-ad52-f79d950f928c")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-[assembly: AssemblyVersion("2.0.1.2")]
-[assembly: AssemblyFileVersion("2.0.1.2")]
-[assembly: AssemblyKeyFile("../TLCActivator.snk")]

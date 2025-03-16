@@ -48,10 +48,12 @@ namespace TLCActivator.LicenseCheckBypass
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             try
             {
+
                 Console.WriteLine("Installing hooks...");
                 AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
                 Harmony harmony = new Harmony("TLCActivator.LicenseCheckBypass");
                 harmony.PatchAll(Assembly.GetExecutingAssembly());
+                Console.WriteLine("Hooks installed.");
                 string[] args = arg.Split('|');
                 if (args[0] != "Unknown")
                 {
@@ -63,10 +65,14 @@ namespace TLCActivator.LicenseCheckBypass
                     productType = args[1];
                     _productTypeUnknown = false;
                 }
+                Console.WriteLine("Product ID: " + productID);
+                Console.WriteLine("Product type: " + productType);
+                Console.WriteLine("Generating license key...");
                 licenseKey = DeviceInformation.GenerateLicense(productID);
                 cpuInfo = DeviceInformation.GetCPUInformation();
                 ramInfo = DeviceInformation.GetRamInformation();
                 hwInfo = DeviceInformation.GetHardwareInformation();
+                Console.WriteLine("License key generated.");
 #if !DEBUG
                 new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
 #endif
@@ -80,7 +86,6 @@ namespace TLCActivator.LicenseCheckBypass
                     catch { }
                     Thread.Sleep(1000);
                 }
-                Console.WriteLine("Hooks installed.");
             }
             catch (Exception ex)
             {

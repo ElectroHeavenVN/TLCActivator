@@ -362,18 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-#  Other files 
-output_log.txt
-Output/Data/Errors/*
-!Output/Data/Errors/.gitignore
-Output/Data/GameData/*
-!Output/Data/GameData/RMS1/2.3.7
-!Output/Data/GameData/RMS2/2.3.7
-Output/Data/QLTK/key.ini
-Output/Data/QLTK/dataAccount.json
-Output/*.exe
-!Output/Dragon ball_237b.exe
-Output/*.exe.config
-Output/Lib/*.dll
-Output/Dragon ball_237b_Data/Managed/Assembly-CSharp.dll
+#  Other files
+Output/*
 TLCActivator.snk
