@@ -167,7 +167,7 @@ internal class ToolAssemblyFile
             "8FF61F47F73D1D30436599D42F5F32D65C1535120B53DEDF40D9004296879941",
             @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
             "3430ECC1F737B28CCB2884E9B4D5542F7C7BB03A5044EBBFD027523B55FC65C9",
-            "",
+            "2ED8F054CDDF24C993A403651AD53BD5D01BF4852FE170156AAFB376454A49FB",
             "Tool Train Quái",
             "icon_trainquaiv1"
             ),
