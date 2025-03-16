@@ -19,6 +19,7 @@ namespace TLCActivator.LicenseCheckBypass
         internal static string productID = DEFAULT_PRODUCT_ID;
         internal static string productType = DEFAULT_PRODUCT_TYPE;
         internal static string licenseKey, cpuInfo, ramInfo, hwInfo, newProductID;
+        internal static bool initialized = false;
 
         internal static bool _productIDUnknown = true;
         internal static bool _productTypeUnknown = true;
@@ -69,10 +70,14 @@ namespace TLCActivator.LicenseCheckBypass
                 Console.WriteLine("Product type: " + productType);
                 Console.WriteLine("Generating license key...");
                 licenseKey = DeviceInformation.GenerateLicense(productID);
-                cpuInfo = DeviceInformation.GetCPUInformation();
-                ramInfo = DeviceInformation.GetRamInformation();
-                hwInfo = DeviceInformation.GetHardwareInformation();
                 Console.WriteLine("License key generated.");
+                cpuInfo = DeviceInformation.GetCPUInformation();
+                Console.WriteLine("CPU information: " + cpuInfo);
+                ramInfo = DeviceInformation.GetRamInformation();
+                Console.WriteLine("RAM information: " + ramInfo);
+                hwInfo = DeviceInformation.GetHardwareInformation();
+                Console.WriteLine("Hardware information: " + hwInfo);
+                initialized = true;
 #if !DEBUG
                 new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
 #endif

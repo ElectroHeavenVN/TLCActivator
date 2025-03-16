@@ -138,7 +138,10 @@ namespace TLCActivator.GUI
             if (!CheckMonoDLL())
                 return;
             TryShowShareFileDialog();
-            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType}");
+            string productType = "Unknown";
+            if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
+                productType = ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType;
+            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {productType}");
         }
 
         void textBoxExePath_DragEnter(object sender, DragEventArgs e)

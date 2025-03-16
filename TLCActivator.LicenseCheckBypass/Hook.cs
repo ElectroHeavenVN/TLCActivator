@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HardwareId;
 using HarmonyLib;
 
 namespace TLCActivator.LicenseCheckBypass
@@ -40,7 +43,7 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string requestUri, ref Task<HttpResponseMessage> __result)
             {
-                Console.WriteLine(requestUri);
+                Console.WriteLine("Request: " + requestUri);
                 if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !requestUri.Contains("thanhlc.com/check/license"))
                     return true;
                 HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
@@ -65,7 +68,7 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string requestUri, ref Task<string> __result)
             {
-                Console.WriteLine(requestUri);
+                Console.WriteLine("Request: " + requestUri);
                 if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !requestUri.Contains("thanhlc.com/check/license"))
                     return true;
                 string activatedOptions = "";
@@ -100,7 +103,8 @@ namespace TLCActivator.LicenseCheckBypass
                     if (!isFormTitleSet && Main.IsProductIDUnknown)
                     {
                         isFormTitleSet = true;
-                        MessageBox.Show($"Product ID: {Main.newProductID}\r\nProduct type: {Main.productType}", "TLCActivator - Information", MessageBoxButtons.OK, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                        Console.WriteLine($"Product ID: {Main.newProductID}\r\nProduct type: {Main.productType}");
+                        MessageBox.Show($"Product ID: {Main.newProductID}\r\nProduct type: {Main.productType}", "TLCActivator.LicenseCheckBypass", MessageBoxButtons.OK, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                     }
                 }
                 else if (value.Contains("thanhloncho"))
@@ -119,6 +123,11 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string[] values, ref string __result)
             {
+                Module module = new StackFrame(2).GetMethod().Module;
+                if (module == typeof(Hook).Module || StringEquals(module.Name, typeof(HWID).Module.Name))
+                    return true;
+                while (!Main.initialized)
+                    Thread.Sleep(250);
                 if (values.Contains(Main.cpuInfo) && values.Contains(Main.ramInfo) && values.Contains(Main.hwInfo) && Main.IsProductIDUnknown && !StringEquals(values[0], Main.productID))
                 {
                     if (!StringEquals(Main.newProductID, values[0]))
@@ -183,7 +192,7 @@ namespace TLCActivator.LicenseCheckBypass
             {
                 if (path.Contains("QLTK/key.ini"))
                 {
-                    while (string.IsNullOrEmpty(Main.licenseKey))
+                    while (!Main.initialized)
                         Thread.Sleep(250);
                     __result = true;
                     return false;

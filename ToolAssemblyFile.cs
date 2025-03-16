@@ -76,7 +76,7 @@ internal class ToolAssemblyFile
             "icon_updepro"
             ),
         new ToolAssemblyFile(
-            "[ThanhLc] Tool up Set Kích hoạt",
+            "[ThanhLc] Tool up set kích hoạt",
             "TOOLUPSKH",
             "toolupskh",
             "4DB339DDA0FA261DF3779ACB62E90006E347DE6A75885F91BDE218290CF20CCD",
@@ -160,7 +160,7 @@ internal class ToolAssemblyFile
             "icon_ultrapro"
             ),
         new ToolAssemblyFile(
-            "[ThanhLc] Tool Train Quái",
+            "[ThanhLc] Tool train quái",
             "TOOLTRAINQUAIV1",
             "TOOL_FARM_MOB",
             "22F9425AE7D5140638A5C49D86E41820E99AF7A60E6E1D41C2EED62AB0E27D72",
