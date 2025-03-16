@@ -53,7 +53,7 @@ namespace TLCActivator.GUI
             }
             new Thread(ConfigureEnv).Start();
 #if !DEBUG
-            string assemblyInfo = new HttpClient().GetStringAsync("https://raw.githubusercontent.com/ElectroHeavenVN/TLCActivator/refs/heads/main/TLCActivator.GUI/VersionAttributes.cs").Result;
+            string assemblyInfo = new HttpClient().GetStringAsync("https://raw.githubusercontent.com/ElectroHeavenVN/TLCActivator/refs/heads/main/VersionAttributes.cs").Result;
             int index = assemblyInfo.IndexOf("[assembly: AssemblyVersion(\"") + "[assembly: AssemblyVersion(\"".Length;
             string version = assemblyInfo.Substring(index, assemblyInfo.IndexOf("\")]", index) - index);
             Version ver = new Version(version);
