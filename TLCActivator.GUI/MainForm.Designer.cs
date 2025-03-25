@@ -44,6 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxType.BackColor = System.Drawing.Color.White;
             this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxType.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.comboBoxType.FormattingEnabled = true;
             this.comboBoxType.Location = new System.Drawing.Point(14, 54);
             this.comboBoxType.Margin = new System.Windows.Forms.Padding(5);
@@ -58,6 +59,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExePath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.textBoxExePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxExePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.textBoxExePath.Location = new System.Drawing.Point(14, 14);
             this.textBoxExePath.Margin = new System.Windows.Forms.Padding(5);
             this.textBoxExePath.Name = "textBoxExePath";
