@@ -138,7 +138,9 @@ namespace TLCActivator.GUI
                 return;
             if (!CheckMonoDLL())
                 return;
+#if !DEBUG
             TryShowShareFileDialog();
+#endif
             string productType = "Unknown";
             if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
                 productType = ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType;
@@ -278,6 +280,12 @@ namespace TLCActivator.GUI
                 return;
             List<string> filePaths = new List<string> { accountManagerPath };
             filePaths.AddRange(gameAssemblyPaths);
+            string hdsdPath = Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HDSD.txt");
+            if (File.Exists(hdsdPath))
+                filePaths.Add(hdsdPath);
+            string productLicensePath = Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), Constants.PRODUCT_LICENSE_NAME + ".exe");
+            if (File.Exists(productLicensePath))
+                filePaths.Add(productLicensePath);
             SendFile(filePaths);
         }
 
