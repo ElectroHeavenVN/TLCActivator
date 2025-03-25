@@ -68,21 +68,39 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string requestUri, ref Task<string> __result)
             {
-                Console.WriteLine("Request: " + requestUri);
-                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !requestUri.Contains("thanhlc.com/check/license"))
-                    return true;
-                string activatedOptions = "";
-                if (StringEquals(Main.productType, "thanhlcpropc") || StringEquals(Main.productType, "modnrsd"))    //RB9APK and K32KIOS is not available as they are meant for Android and iOS devices
+                Console.Write("Request: " + requestUri);
+                if (
+                    requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") || 
+                    (requestUri.Contains("thanhlc.com/check/license") && Main.productID == "TOOLTRAINQUAIV1")
+                    )
                 {
-                    for (int i = 0; i < 10; i++)
-                        activatedOptions += $"[Option{i + 1}:T]-";
-                    activatedOptions = activatedOptions.TrimEnd('-');
+                    string activatedOptions = "";
+                    if (StringEquals(Main.productType, "thanhlcpropc") || StringEquals(Main.productType, "modnrsd"))    //RB9APK and K32KIOS is not available as they are meant for Android and iOS devices
+                    {
+                        for (int i = 0; i < 10; i++)
+                            activatedOptions += $"[Option{i + 1}:T]-";
+                        activatedOptions = activatedOptions.TrimEnd('-');
+                    }
+                    else
+                        activatedOptions = "1";
+                    string version = "0.0";
+                    string licenseString = $"{Main.licenseKey}|{Main.productType}|{activatedOptions}|9999-12-31|thanhloncho|hoantat|{version}|endkey|";
+                    string result = $"<head></head><body><table class=\"waffle\"><tbody><tr><td class=\"s1\">StartLicense</td></tr><tr><td class=\"s1\">{licenseString}</td></tr><tr><td class=\"s2\">EndLicense</td></tr></tbody></table></body>";
+                    __result = Task.FromResult(result);
+                    Console.WriteLine(" -> " + result);
+                }
+                else if (requestUri.Contains("thanhlc.com/check/license"))
+                {
+                    string licenseString = $"{Main.licenseKey}|9999-12-31|thanhloncho|hoantat|{Main.uuid}|{Main.productType}|endkey|";
+                    string result = $"<head></head><body><table><tbody><tr><td>{licenseString}</td></tr></tbody></table></body>";
+                    __result = Task.FromResult(result);
+                    Console.WriteLine(" -> " + result);
                 }
                 else
-                    activatedOptions = "1";
-                string version = "0.0";
-                string licenseString = $"{Main.licenseKey}|{Main.productType}|{activatedOptions}|9999-12-31|thanhloncho|hoantat|{version}|endkey|";
-                __result = Task.FromResult($"<head></head><body><table class=\"waffle\"><tbody><tr><td class=\"s1\">StartLicense</td></tr><tr><td class=\"s1\">{licenseString}</td></tr><tr><td class=\"s2\">EndLicense</td></tr></tbody></table></body>");
+                {
+                    Console.WriteLine();
+                    return true;
+                }
                 return false;
             }
         }
@@ -121,19 +139,32 @@ namespace TLCActivator.LicenseCheckBypass
         [HarmonyPatch(typeof(string), nameof(string.Concat), typeof(string[]))]
         public class StringConcatMultipleHook
         {
-            static bool Prefix(string[] values, ref string __result)
+            static bool Prefix(string[] values)
             {
                 Module module = new StackFrame(2).GetMethod().Module;
                 if (module == typeof(Hook).Module || StringEquals(module.Name, typeof(HWID).Module.Name))
                     return true;
                 while (!Main.initialized)
                     Thread.Sleep(250);
-                if (values.Contains(Main.cpuInfo) && values.Contains(Main.ramInfo) && values.Contains(Main.hwInfo) && Main.IsProductIDUnknown && !StringEquals(values[0], Main.productID))
+                if (values.Contains(Main.cpuInfo) && values.Contains(Main.ramInfo) && values.Contains(Main.hwInfo) && Main.IsProductIDUnknown)
                 {
-                    if (!StringEquals(Main.newProductID, values[0]))
-                        Main.newProductID = values[0];
-                    values[0] = Main.productID;
+                    if (!StringEquals(values[0], Main.productID) || !StringEquals(values[0], "LCT:" + Main.productID + '.' + Main.licenseKey))
+                    {
+                        string newProductID = values[0];
+                        bool isNewVerificationMethod = newProductID.Contains("LCT:");
+                        if (isNewVerificationMethod)
+                            newProductID = newProductID.Replace("LCT:", "").Split('.')[0];
+                        if (!StringEquals(Main.newProductID, newProductID))
+                            Main.newProductID = newProductID;
+                        values[0] = Main.productID;
+                        if (isNewVerificationMethod)
+                        {
+                            values[0] = "LCT:" + Main.productID + '.' + Main.licenseKey;
+                            Main.GenerateNewUUID();
+                        }
+                    }
                 }
+
                 return true;
             }
         }
@@ -190,7 +221,7 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string path, ref bool __result)
             {
-                if (path.Contains("QLTK/key.ini"))
+                if (path.Contains("QLTK"))
                 {
                     while (!Main.initialized)
                         Thread.Sleep(250);
@@ -206,11 +237,18 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string path, ref string __result)
             {
-                if (path.Contains("QLTK/key.ini"))
+                if (path.Contains("QLTK/key.ini") || path.Contains("QLTK\\license.ini"))
                 {
                     while (string.IsNullOrEmpty(Main.licenseKey))
                         Thread.Sleep(250);
                     __result = Main.licenseKey;
+                    return false;
+                }
+                if (path.Contains("QLTK\\uuid.ini"))
+                {
+                    while (string.IsNullOrEmpty(Main.uuid))
+                        Thread.Sleep(250);
+                    __result = Main.uuid;
                     return false;
                 }
                 return true;

@@ -183,6 +183,18 @@ internal class ToolAssemblyFile
             "Tool nhiệm vụ hàng ngày",
             "icon_nvbm"
             ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool nhặt ngọc hàng ngày",
+            "PICKGEM237",
+            "TOOL_PICK_UP_GEM",
+            "F22FC8ADF12CFEADB3CFD1DFD91BAFE85DFDF4C9B2BD01670AAE4678E5390533",
+            "9E66AC730C5E4E369A34C8ED6DC9A910459C3719C93B29A4C8E6B933B00CBE73",
+            "Dragon ball_237b_Data/Managed/Assembly-CSharp.dll",
+            "A551F593F083048D6CDB217BABB97B64038BF9487D518AC55706424EF2CF66F1",
+            "C1C3E7A28AE3D707569F65E28588EC28AE4B7F8C7BDEBCE6D0380EE174ED754C",
+            "Tool nhặt ngọc hàng ngày",
+            "icon_pickgem"
+            ),
     };
 
     public static ToolAssemblyFile GetByProductID(string productID) => tools.FirstOrDefault(x => x.ProductID == productID);

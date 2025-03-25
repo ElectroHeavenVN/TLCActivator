@@ -19,6 +19,7 @@ namespace TLCActivator.LicenseCheckBypass
         internal static string productID = DEFAULT_PRODUCT_ID;
         internal static string productType = DEFAULT_PRODUCT_TYPE;
         internal static string licenseKey, cpuInfo, ramInfo, hwInfo, newProductID;
+        internal static string uuid;
         internal static bool initialized = false;
 
         internal static bool _productIDUnknown = true;
@@ -77,6 +78,8 @@ namespace TLCActivator.LicenseCheckBypass
                 Console.WriteLine("RAM information: " + ramInfo);
                 hwInfo = DeviceInformation.GetHardwareInformation();
                 Console.WriteLine("Hardware information: " + hwInfo);
+                uuid = DeviceInformation.GenerateLicense("LCT:" + productID + '.' + licenseKey);
+                Console.WriteLine("UUID: " + uuid);
                 initialized = true;
 #if !DEBUG
                 new Thread(TCLRichPresence.Run) { IsBackground = true }.Start();
@@ -86,6 +89,8 @@ namespace TLCActivator.LicenseCheckBypass
                     try
                     {
                         File.WriteAllText("Data\\QLTK\\key.ini", licenseKey);
+                        File.WriteAllText("Data\\QLTK\\license.ini", licenseKey);
+                        File.WriteAllText("Data\\QLTK\\uuid.ini", uuid);
                         break;
                     }
                     catch { }
@@ -99,6 +104,16 @@ namespace TLCActivator.LicenseCheckBypass
                 return 1;
             }
             return 0;
+        }
+
+        internal static void GenerateNewUUID()
+        {
+            uuid = DeviceInformation.GenerateLicense("LCT:" + newProductID + '.' + licenseKey);
+            try
+            {
+                File.WriteAllText("Data\\QLTK\\uuid.ini", uuid);
+            }
+            catch { }
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
