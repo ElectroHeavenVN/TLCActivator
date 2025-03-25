@@ -44,8 +44,6 @@ namespace TLCActivator.Injector
             try
             {
                 Console.WriteLine("Injecting TLCActivator.LicenseCheckBypass.dll...");
-                if (!File.Exists(Path.GetDirectoryName(args[0]) + "\\Data\\QLTK\\key.ini"))
-                    File.Create(Path.GetDirectoryName(args[0]) + "\\Data\\QLTK\\key.ini");
                 ProcessStartInfo processStartInfo = new ProcessStartInfo(args[0])
                 {
                     WorkingDirectory = Path.GetDirectoryName(args[0]),
