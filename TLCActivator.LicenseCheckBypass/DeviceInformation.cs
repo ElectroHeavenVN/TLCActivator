@@ -7,11 +7,11 @@ using HardwareId;
 
 internal static class DeviceInformation
 {
-    public static string GenerateLicense(string productName)
+    public static string GenerateLicense(string productID)
     {
         try
         {
-            string text = productName + "." + GetCPUInformation() + GetRamInformation() + GetHardwareInformation();
+            string text = productID + "." + GetCPUInformation() + GetRamInformation() + GetHardwareInformation();
             if (IsWindowServer())
                 text = text + GetMacAddress() + GetIpv4();
             return HashGenerator.GenerateMD5(text);
