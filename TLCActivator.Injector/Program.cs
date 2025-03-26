@@ -43,6 +43,9 @@ namespace TLCActivator.Injector
             }
             try
             {
+#if DEBUG
+                AllocConsole();
+#endif
                 Console.WriteLine("Injecting TLCActivator.LicenseCheckBypass.dll...");
                 ProcessStartInfo processStartInfo = new ProcessStartInfo(args[0])
                 {
