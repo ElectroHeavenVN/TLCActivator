@@ -181,8 +181,8 @@ namespace TLCActivator.GUI
             if (index != -1)
             {
                 comboBoxType.SelectedIndex = index;
-                if (ToolAssemblyFile.tools[index].ProductID == "AUTONVBM" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
-                    comboBoxType.SelectedIndex = index = Array.FindLastIndex(ToolAssemblyFile.tools, x => Path.GetFileNameWithoutExtension(textBoxExePath.Text) == x.ExecutableName);
+                //if (ToolAssemblyFile.tools[index].ProductID == "AUTONVBM" && File.Exists(Path.Combine(Path.GetDirectoryName(textBoxExePath.Text), "HtmlAgilityPack.dll")))
+                //    comboBoxType.SelectedIndex = index = Array.FindLastIndex(ToolAssemblyFile.tools, x => Path.GetFileNameWithoutExtension(textBoxExePath.Text) == x.ExecutableName);
             }
             else
                 comboBoxType.SelectedIndex = index = comboBoxType.Items.Count - 1;
@@ -271,6 +271,11 @@ namespace TLCActivator.GUI
                 return;
             if (hashSHA256_GameAssemblies.All(fileHash => ToolAssemblyFile.GameAssemblyHashMatch(fileHash)) && ToolAssemblyFile.HashMatch(hashSHA256_accountManager))
                 return;
+            if (hashSHA256_GameAssemblies.All(fileHash => ToolAssemblyFile.IsOldToolGameAssembly(fileHash)) && ToolAssemblyFile.IsOldTool(hashSHA256_accountManager))
+            {
+                MessageBox.Show(this, "The tool you are trying to activate is an old version. Please use the new version of the tool.\r\nTool bạn đang muốn kích hoạt là phiên bản cũ. Vui lòng sử dụng phiên bản mới.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
+                return;
+            }
             File.AppendAllText(ignoredFileHashesPath, hashSHA256_accountManager + Environment.NewLine);
             File.AppendAllLines(ignoredFileHashesPath, hashSHA256_GameAssemblies);
             string message = "It seems like this tool is not officially supported. TLCActivator will try its best to activate the tool. Would you like to send this tool to ElectroHeavenVN?\r\n\r\nCó vẻ như tool này không được hỗ trợ chính thức. TLCActivator sẽ cố gắng hết sức để kích hoạt tool này. Bạn có muốn gửi file tool cho ElectroHeavenVN không?";

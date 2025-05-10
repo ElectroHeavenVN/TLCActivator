@@ -100,18 +100,6 @@ internal class ToolAssemblyFile
             "icon_trainskill9"
             ),
         new ToolAssemblyFile(
-            "[ThanhLc] Tool nhiệm vụ bò mộng",
-            "AUTONVBM",
-            "toolnvhangngaypro",
-            "1B0F244595BCEC8261B462D4DDF62B82325554BCD0B68F03EC1B534174584B97",
-            "",
-            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
-            "",
-            "F2BDD8C88B44041159BEA2844AC6E05B9E184573F856A0A3BD1EA8039C997FEF",
-            "Tool nhiệm vụ hàng ngày",
-            "icon_nvbm"
-            ),
-        new ToolAssemblyFile(
             "[ThanhLc] Tool up mảnh vỡ bông tai",
             "PORATASHARP237",
             "toolmvbt",
@@ -140,12 +128,100 @@ internal class ToolAssemblyFile
             "TREOGTL",
             "TOOL_TRAIN_SUIT_TIME",
             "FDB3691FD8AA1C946AF17C52581E803F5BACCEDD74292FA0B329B5B7071F4CFD",
-            "96F3077CFFE06F3A6CF808464C225009D63F9A970D070B27A4E43468A72226F4",
+            "4A672D0659D2F5EF4E1C643683B44761FC21304CD454493F8C6B5478FF8BE39A",
             @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
-            "",
-            "3A979F4B310BB897170C109427836F428448E5BFAE02FA06316B1F8E9062867D",
+            "4A8A3AFEB36D41F3D0256BA5A7CD10C8F79C55D0A5FF87E6CBEB913A941180FC",
+            "8057A5B8CC0CF451138B9932B6BBC2A1A179EE7FCAD292AABE3C34E0148C7367",
             "Tool treo Giáp tập luyện",
             "icon_treogtl"
+            ),
+        new ToolAssemblyFile(
+            "[LCT] QLTK Ultra Pro 244",
+            "ULTRA_PRO_244_20/2/2024",
+            "ULTRA_PRO_244",
+            "064769B2407B0FC24980CEE31A05583EA5B8E1EF136CC9BB50443A9A4F9F57DD",
+            "7623FCE3F50D3B51698DE4A44E85B3C72FED671978C0FE088346DC9E96D4B885",
+            @"Nro_244_Data\Managed\Assembly-CSharp.dll",
+            "B9E2BDE1B86C1160B9D85D4234ABCC92DA61B4F07627E3F8BA1DAC9FBC1EB7FF",
+            "4E169546F3251F4CEC6FB3BEDC246A78FF3D4A6CABF63213E1C8CCC31A56BFA2",
+            "Dragon Boy Ultra Pro 2.4.4",
+            "icon_ultrapro"
+            ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool train quái",
+            "TOOLTRAINQUAIV1",
+            "TOOL_FARM_MOB",
+            "73FE67096284241ACBEE7EF9CB4F33F41B3F09F54AE602214DCCD7562A20B468",
+            "5846275CEFD490A86199385FEF55F8EAB8847CBAE780A6E5068D517D96716C4D",
+            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
+            "26F99DC7F4BE24A076CD9CB05D322B37C168C992C1F31CC084787DF52406AA98",
+            "3761D9877D3C1C4C51F70EE97E562AFCE434672F992E0B711A58E4B9128E959A",
+            "Tool Train Quái",
+            "icon_trainquaiv1"
+            ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool nhiệm vụ bò mộng",
+            "AUTONVBM",
+            "TOOL_BORA_DAILY_TASK",
+            "C63C68DFC2A796D45814B6925F92F58D5686F75A63E1FF47210C4D990B7B3042",
+            "0A10E4A23B278D123210DCADE252747E832202F3153D65C08CDB651D01B597BD",
+            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
+            "9E2F4C6B9A07A15CC332E4DB48008F48E1A4DF26C8AE059E843C7010B81CFAF1",
+            "25C39CF37FD9689B9203D7CDE9C08355CC182536CA78586F4F42C7E214C32FCD",
+            "Tool nhiệm vụ hàng ngày",
+            "icon_nvbm"
+            ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool nhặt ngọc hàng ngày",
+            "PICKGEM237",
+            "TOOL_PICK_UP_GEM",
+            "F22FC8ADF12CFEADB3CFD1DFD91BAFE85DFDF4C9B2BD01670AAE4678E5390533",
+            "9E66AC730C5E4E369A34C8ED6DC9A910459C3719C93B29A4C8E6B933B00CBE73",
+            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
+            "A551F593F083048D6CDB217BABB97B64038BF9487D518AC55706424EF2CF66F1",
+            "C1C3E7A28AE3D707569F65E28588EC28AE4B7F8C7BDEBCE6D0380EE174ED754C",
+            "Tool nhặt ngọc hàng ngày",
+            "icon_pickgem"
+            ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool hỗ trợ up đệ tử V2",
+            "AUTOPET225_18/10/2024",
+            "TOOL_TRAIN_DISCIPLE_JAVA2",
+            "BF94157575D475F7BC1FDCFB7C7B985959BEA81DE3F35479A2853D6B16E05425",
+            "C034364DBF212537F0EC45398150214B6EAFF3E1CEC513F55E373A21410C0632",
+            @"lib\DragonPro225.jar",
+            "F72E60E30506CEC47A5BEDCCCADA2D34EEB76374C1FE669F74F7F84AC5D06693",
+            "1B533AEEF415EE9B1ECDE7059174FCF6A6C2318A7F32FA20E90A7672294AA271",
+            "Tool hỗ trợ up đệ tử Java",
+            "icon_updejava"
+            ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool tự động bán đồ rác",
+            "CLEANINVENTORY",
+            "TOOL_CLEAN_INVENTORY",
+            "179AC7781F3AF72715C72214A27FF81E1FFFDA61ABEE5F18914EBD3FEF2C6DA5",
+            "645F16A2F94DE338B90C67AE58CEC6F982B7CB7CC3BF8369CF97023A4DB6CAF9",
+            @"Dragonboy_vn_v231_Data\Managed\Assembly-CSharp.dll",
+            "93F8144C43917FA5F5A44C098171C49CAA3A472894B8A2E5D49D45BEA864761F",
+            "6D2BE105B4F8D4C730DA271E3339D71FB81E7ABCEED0C38D626BB6A7CC43F347",
+            "Tool tự động bán đồ rác",
+            "icon_bandorac"
+            ),
+    };
+
+    public static ToolAssemblyFile[] oldTools = new ToolAssemblyFile[]
+    {
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool nhiệm vụ bò mộng",
+            "AUTONVBM",
+            "toolnvhangngaypro",
+            "1B0F244595BCEC8261B462D4DDF62B82325554BCD0B68F03EC1B534174584B97",
+            "",
+            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
+            "",
+            "F2BDD8C88B44041159BEA2844AC6E05B9E184573F856A0A3BD1EA8039C997FEF",
+            "Tool nhiệm vụ hàng ngày",
+            "icon_nvbm"
             ),
         new ToolAssemblyFile(
             "[LCT] QLTK Ultra Pro 244",
@@ -160,18 +236,6 @@ internal class ToolAssemblyFile
             "icon_ultrapro"
             ),
         new ToolAssemblyFile(
-            "[ThanhLc] Tool train quái",
-            "TOOLTRAINQUAIV1",
-            "TOOL_FARM_MOB",
-            "22F9425AE7D5140638A5C49D86E41820E99AF7A60E6E1D41C2EED62AB0E27D72",
-            "8FF61F47F73D1D30436599D42F5F32D65C1535120B53DEDF40D9004296879941",
-            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
-            "3430ECC1F737B28CCB2884E9B4D5542F7C7BB03A5044EBBFD027523B55FC65C9",
-            "2ED8F054CDDF24C993A403651AD53BD5D01BF4852FE170156AAFB376454A49FB",
-            "Tool Train Quái",
-            "icon_trainquaiv1"
-            ),
-        new ToolAssemblyFile(
             "[ThanhLc] Tool nhiệm vụ bò mộng",
             "AUTONVBM",
             "TOOL_BORA_DAILY_TASK",
@@ -184,16 +248,28 @@ internal class ToolAssemblyFile
             "icon_nvbm"
             ),
         new ToolAssemblyFile(
-            "[ThanhLc] Tool nhặt ngọc hàng ngày",
-            "PICKGEM237",
-            "TOOL_PICK_UP_GEM",
-            "F22FC8ADF12CFEADB3CFD1DFD91BAFE85DFDF4C9B2BD01670AAE4678E5390533",
-            "9E66AC730C5E4E369A34C8ED6DC9A910459C3719C93B29A4C8E6B933B00CBE73",
-            "Dragon ball_237b_Data/Managed/Assembly-CSharp.dll",
-            "A551F593F083048D6CDB217BABB97B64038BF9487D518AC55706424EF2CF66F1",
-            "C1C3E7A28AE3D707569F65E28588EC28AE4B7F8C7BDEBCE6D0380EE174ED754C",
-            "Tool nhặt ngọc hàng ngày",
-            "icon_pickgem"
+            "[ThanhLc] Tool train quái",
+            "TOOLTRAINQUAIV1",
+            "TOOL_FARM_MOB",
+            "22F9425AE7D5140638A5C49D86E41820E99AF7A60E6E1D41C2EED62AB0E27D72",
+            "8FF61F47F73D1D30436599D42F5F32D65C1535120B53DEDF40D9004296879941",
+            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
+            "3430ECC1F737B28CCB2884E9B4D5542F7C7BB03A5044EBBFD027523B55FC65C9",
+            "2ED8F054CDDF24C993A403651AD53BD5D01BF4852FE170156AAFB376454A49FB",
+            "Tool Train Quái",
+            "icon_trainquaiv1"
+            ),
+        new ToolAssemblyFile(
+            "[ThanhLc] Tool treo giáp tập luyện",
+            "TREOGTL",
+            "TOOL_TRAIN_SUIT_TIME",
+            "FDB3691FD8AA1C946AF17C52581E803F5BACCEDD74292FA0B329B5B7071F4CFD",
+            "96F3077CFFE06F3A6CF808464C225009D63F9A970D070B27A4E43468A72226F4",
+            @"Dragon ball_237b_Data\Managed\Assembly-CSharp.dll",
+            "",
+            "3A979F4B310BB897170C109427836F428448E5BFAE02FA06316B1F8E9062867D",
+            "Tool treo Giáp tập luyện",
+            "icon_treogtl"
             ),
     };
 
@@ -202,6 +278,10 @@ internal class ToolAssemblyFile
     public static bool HashMatch(string hash) => tools.Any(x => x.OriginalHash == hash || x.DeobfuscatedHash == hash);
 
     public static bool GameAssemblyHashMatch(string hash) => tools.Any(x => x.OriginalGameAssemblyHash == hash || x.ModifiedGameAssemblyHash == hash);
+
+    public static bool IsOldTool(string hash) => oldTools.Any(x => x.OriginalHash == hash || x.DeobfuscatedHash == hash);
+
+    public static bool IsOldToolGameAssembly(string hash) => oldTools.Any(x => x.OriginalGameAssemblyHash == hash || x.ModifiedGameAssemblyHash == hash);
 
     public static string[] GetProductIDs() => tools.Select(x => x.ProductID).ToArray();
 }
