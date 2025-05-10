@@ -41,12 +41,16 @@ namespace TLCActivator.LicenseCheckBypass
                 MessageBox.Show("Please extract the file before running!", "TLCActivator.LicenseCheckBypass", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                 return 1;
             }
-#if DEBUG
-            AllocConsole();
-            Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.Title = "TLCActivator Debug Console - " + Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
-#endif
+            string[] args = arg.Split('|');
+            bool verbose = false;
+            bool.TryParse(args[2], out verbose);
+            if (verbose)
+            {
+                AllocConsole();
+                Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+                Console.OutputEncoding = Encoding.UTF8;
+                Console.Title = "TLCActivator Debug Console - " + Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+            }
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             try
             {
@@ -56,7 +60,6 @@ namespace TLCActivator.LicenseCheckBypass
                 Harmony harmony = new Harmony("TLCActivator.LicenseCheckBypass");
                 harmony.PatchAll(Assembly.GetExecutingAssembly());
                 Console.WriteLine("Hooks installed.");
-                string[] args = arg.Split('|');
                 if (args[0] != "Unknown")
                 {
                     productID = args[0];

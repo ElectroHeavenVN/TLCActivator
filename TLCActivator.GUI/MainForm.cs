@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -33,6 +32,9 @@ namespace TLCActivator.GUI
             //pictureBox.Image = Properties.Resources.TCLMeme;
             imgIndex = 3;
             CheckInjectorExists();
+#if DEBUG
+            cbVerbose.Checked = true;
+#endif
         }
 
         void textBoxExePath_TextChanged(object sender, EventArgs e)
@@ -144,7 +146,7 @@ namespace TLCActivator.GUI
             string productType = "Unknown";
             if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
                 productType = ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType;
-            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {productType}");
+            Process.Start(Path.GetDirectoryName(typeof(MainForm).Assembly.Location) + "\\TLCActivator.Injector.exe", $"\"{textBoxExePath.Text}\" {comboBoxType.SelectedItem} {productType} {cbVerbose.Checked}");
         }
 
         void textBoxExePath_DragEnter(object sender, DragEventArgs e)

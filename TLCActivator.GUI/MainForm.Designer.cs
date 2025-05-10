@@ -35,6 +35,7 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.buttonRun = new System.Windows.Forms.Button();
             this.buttonSaveShortcut = new System.Windows.Forms.Button();
+            this.cbVerbose = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,7 +64,7 @@
             this.textBoxExePath.Location = new System.Drawing.Point(14, 14);
             this.textBoxExePath.Margin = new System.Windows.Forms.Padding(5);
             this.textBoxExePath.Name = "textBoxExePath";
-            this.textBoxExePath.Size = new System.Drawing.Size(413, 30);
+            this.textBoxExePath.Size = new System.Drawing.Size(314, 30);
             this.textBoxExePath.TabIndex = 1;
             this.textBoxExePath.TextChanged += new System.EventHandler(this.textBoxExePath_TextChanged);
             this.textBoxExePath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxExePath_DragDrop);
@@ -75,7 +76,7 @@
             this.buttonBrowseExeFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonBrowseExeFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBrowseExeFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.buttonBrowseExeFile.Location = new System.Drawing.Point(426, 14);
+            this.buttonBrowseExeFile.Location = new System.Drawing.Point(327, 14);
             this.buttonBrowseExeFile.Margin = new System.Windows.Forms.Padding(5);
             this.buttonBrowseExeFile.Name = "buttonBrowseExeFile";
             this.buttonBrowseExeFile.Size = new System.Drawing.Size(35, 30);
@@ -107,7 +108,7 @@
             this.buttonRun.BackColor = System.Drawing.Color.White;
             this.buttonRun.Enabled = false;
             this.buttonRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.buttonRun.Location = new System.Drawing.Point(469, 14);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.Size = new System.Drawing.Size(116, 73);
@@ -122,7 +123,7 @@
             this.buttonSaveShortcut.BackColor = System.Drawing.Color.White;
             this.buttonSaveShortcut.Enabled = false;
             this.buttonSaveShortcut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonSaveShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.buttonSaveShortcut.Location = new System.Drawing.Point(361, 54);
             this.buttonSaveShortcut.Margin = new System.Windows.Forms.Padding(5);
             this.buttonSaveShortcut.Name = "buttonSaveShortcut";
@@ -132,12 +133,26 @@
             this.buttonSaveShortcut.UseVisualStyleBackColor = false;
             this.buttonSaveShortcut.Click += new System.EventHandler(this.buttonSaveShortcut_Click);
             // 
+            // cbVerbose
+            // 
+            this.cbVerbose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbVerbose.AutoSize = true;
+            this.cbVerbose.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbVerbose.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.cbVerbose.Location = new System.Drawing.Point(368, 19);
+            this.cbVerbose.Name = "cbVerbose";
+            this.cbVerbose.Size = new System.Drawing.Size(93, 24);
+            this.cbVerbose.TabIndex = 6;
+            this.cbVerbose.Text = "Verbose";
+            this.cbVerbose.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 453);
+            this.Controls.Add(this.cbVerbose);
             this.Controls.Add(this.buttonSaveShortcut);
             this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.pictureBox);
@@ -167,6 +182,7 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button buttonRun;
         private System.Windows.Forms.Button buttonSaveShortcut;
+        private System.Windows.Forms.CheckBox cbVerbose;
     }
 }
 

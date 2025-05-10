@@ -27,10 +27,10 @@ namespace TLCActivator.Injector
                 MessageBox.Show("Please extract the file before running!\r\nVui lòng giải nén file trước!", "TLCActivator.Injector", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x00040000);
                 return;
             }
-            if (args.Length != 3)
+            if (args.Length != 3 && args.Length != 4)
             {
                 AllocConsole();
-                Console.WriteLine("Usage: TLCActivator.Injector.exe <executable path> <product id> <product type>");
+                Console.WriteLine("Usage: TLCActivator.Injector.exe <executable path> <product id> <product type> [verbose]");
                 Console.ReadLine();
                 return;
             }
@@ -41,11 +41,25 @@ namespace TLCActivator.Injector
                 Console.ReadLine();
                 return;
             }
+            bool verbose = false;
+            if (args.Length == 4)
+            {
+                if (bool.TryParse(args[3], out bool resultVerbose))
+                {
+                    verbose = resultVerbose;
+                }
+                else
+                {
+                    AllocConsole();
+                    Console.WriteLine("Invalid verbose argument. Expected 'true' or 'false'.");
+                    Console.ReadLine();
+                    return;
+                }
+            }
             try
             {
-#if DEBUG
-                AllocConsole();
-#endif
+                if (verbose)
+                    AllocConsole();
                 Console.WriteLine("Injecting TLCActivator.LicenseCheckBypass.dll...");
                 ProcessStartInfo processStartInfo = new ProcessStartInfo(args[0])
                 {
@@ -68,7 +82,7 @@ namespace TLCActivator.Injector
                 }
                 while (!hasCLRJIT && count < 10);
                 Thread.Sleep(100);
-                if (ExtremeDumper.Injecting.Injector.InjectManagedAndWait((uint)process.Id, Path.GetDirectoryName(typeof(Program).Assembly.Location) + "\\Lib\\TLCActivator.LicenseCheckBypass.dll", "TLCActivator.LicenseCheckBypass.Main", "Initialize", string.Join("|", args[1], args[2]).Trim(), InjectionClrVersion.V4, out _))
+                if (ExtremeDumper.Injecting.Injector.InjectManagedAndWait((uint)process.Id, Path.GetDirectoryName(typeof(Program).Assembly.Location) + "\\Lib\\TLCActivator.LicenseCheckBypass.dll", "TLCActivator.LicenseCheckBypass.Main", "Initialize", string.Join("|", args[1], args[2], verbose).Trim(), InjectionClrVersion.V4, out _))
                     Console.WriteLine("Injection succeeded.");
                 else
                 {

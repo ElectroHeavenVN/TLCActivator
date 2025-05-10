@@ -44,7 +44,7 @@ namespace TLCActivator.LicenseCheckBypass
             static bool Prefix(string requestUri, ref Task<HttpResponseMessage> __result)
             {
                 Console.WriteLine("Request: " + requestUri);
-                if (!requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !requestUri.Contains("thanhlc.com/check/license"))
+                if (!StringContains(requestUri, "1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") && !StringContains(requestUri, "thanhlc.com/check/license"))
                     return true;
                 HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
                 string activatedOptions = "";
@@ -62,17 +62,14 @@ namespace TLCActivator.LicenseCheckBypass
                 return false;
             }
         }
-        
+
         [HarmonyPatch(typeof(HttpClient), nameof(HttpClient.GetStringAsync), typeof(string))]
         public class HttpClientGetStringAsyncHook
         {
             static bool Prefix(string requestUri, ref Task<string> __result)
             {
                 Console.Write("Request: " + requestUri);
-                if (
-                    requestUri.Contains("1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI") || 
-                    (requestUri.Contains("thanhlc.com/check/license") && Main.productID == "TOOLTRAINQUAIV1")
-                    )
+                if (StringContains(requestUri, "1ht_P2kqVZgMuAfHEtSMEGOmS1IloohmjoY6Gbp5EvlI"))
                 {
                     string activatedOptions = "";
                     if (StringEquals(Main.productType, "thanhlcpropc") || StringEquals(Main.productType, "modnrsd"))    //RB9APK and K32KIOS is not available as they are meant for Android and iOS devices
@@ -89,7 +86,13 @@ namespace TLCActivator.LicenseCheckBypass
                     __result = Task.FromResult(result);
                     Console.WriteLine(" -> " + result);
                 }
-                else if (requestUri.Contains("thanhlc.com/check/license"))
+                else if (StringContains(requestUri, "thanhlc.com/check/licenseID="))
+                {
+                    string result = $"{Main.licenseKey}|9999-12-31|thanhloncho|hoantat|{Main.uuid}|{Main.productType}|endkey|";
+                    __result = Task.FromResult(result);
+                    Console.WriteLine(" -> " + result);
+                }
+                else if (StringContains(requestUri, "thanhlc.com/check/license"))
                 {
                     string licenseString = $"{Main.licenseKey}|9999-12-31|thanhloncho|hoantat|{Main.uuid}|{Main.productType}|endkey|";
                     string result = $"<head></head><body><table><tbody><tr><td>{licenseString}</td></tr></tbody></table></body>";
@@ -237,19 +240,22 @@ namespace TLCActivator.LicenseCheckBypass
         {
             static bool Prefix(string path, ref string __result)
             {
-                if (path.Contains("QLTK/key.ini") || path.Contains("QLTK\\license.ini"))
+                if (path.Contains("QLTK"))
                 {
-                    while (string.IsNullOrEmpty(Main.licenseKey))
-                        Thread.Sleep(250);
-                    __result = Main.licenseKey;
-                    return false;
-                }
-                if (path.Contains("QLTK\\uuid.ini"))
-                {
-                    while (string.IsNullOrEmpty(Main.uuid))
-                        Thread.Sleep(250);
-                    __result = Main.uuid;
-                    return false;
+                    if (path.Contains("key.ini") || path.Contains("license.ini"))
+                    {
+                        while (string.IsNullOrEmpty(Main.licenseKey))
+                            Thread.Sleep(250);
+                        __result = Main.licenseKey;
+                        return false;
+                    }
+                    if (path.Contains("uuid.ini"))
+                    {
+                        while (string.IsNullOrEmpty(Main.uuid))
+                            Thread.Sleep(250);
+                        __result = Main.uuid;
+                        return false;
+                    }
                 }
                 return true;
             }
