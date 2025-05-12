@@ -140,9 +140,7 @@ namespace TLCActivator.GUI
                 return;
             if (!CheckMonoDLL())
                 return;
-#if !DEBUG
             TryShowShareFileDialog();
-#endif
             string productType = "Unknown";
             if (comboBoxType.SelectedIndex != comboBoxType.Items.Count - 1)
                 productType = ToolAssemblyFile.tools[comboBoxType.SelectedIndex].ProductType;
@@ -242,7 +240,7 @@ namespace TLCActivator.GUI
             }
             directoryInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxExePath.Text));
             foreach (var file in directoryInfo.GetFiles("*.jar", SearchOption.AllDirectories).Where(f => !f.FullName.Contains("jre\\lib\\")))
-                if (!gameAssemblyPaths.Contains(file.FullName))
+                if (!file.FullName.Contains("Emulator") && !gameAssemblyPaths.Contains(file.FullName))
                     gameAssemblyPaths.Add(file.FullName);
             string[] ignoredFileHashes = File.ReadAllLines(ignoredFileHashesPath);
             List<string> hashSHA256_GameAssemblies = new List<string>();
